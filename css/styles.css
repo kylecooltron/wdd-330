@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans+Narrow&display=swap');
+
+
+html {
+font-family: 'PT Sans Narrow', sans-serif;
+}
+
+body {
+  background-color: #213944;
+}
+
+.content {
+  max-width: 700px;
+  min-width: 250px;
+  margin: auto;
+  color: white;
+  margin-bottom: 10em;
+}
+
+a {
+  color: rgb(100, 191, 197);
+}
+a:hover {
+  color: rgb(59, 134, 204);
+}
+
+[active="false"], [active="false"] a {
+  color: rgb(65, 87, 88);
+}
+
+ol li {
+  list-style: none;
+}
+ul li {
+  list-style: circle;
+  margin-left: 1em;
+}
+
+li{
+  font-size: 1.3em;
+  padding: 0.3em;
+}
+ul {
+  font-size: 0.8em;
+  letter-spacing: 0.06em;
+}
+ul *  {
+  padding-left: 10px;
+}
+
+.drop-shadow {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.59);
+}
+
+header {
+  background-color: #6d7e23;
+  padding: 30px 10px 10px;
+  align-items: center;
+  text-align:center;
+  margin: 0 auto 2em;
+    width: 50%;
+}
+
+h1 {
+  padding: 5px;
+  margin: 5px;
+}
+
+.weekly-notes{
+  white-space: pre;
+}
+
+em {
+  color:rgb(255, 246, 118);
+  font-style: normal;
+  font-size: large;
+}
+
+h2 {
+  color: rgb(221, 156, 118);
+}
+
+footer {
+  background-color: #6d7e23;
+  padding: 15px;
+  margin-top: 2em;
+  text-align: center;
+  font-size: 1.3em;
+  letter-spacing: 0.05em;
+  position: fixed;
+  bottom:15px;
+  width: 100%;
+  max-width: 600px;
+}
+
+
+.emphasized { 
+  font-style: italic;
+  
+}
