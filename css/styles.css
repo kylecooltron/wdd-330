@@ -61,6 +61,16 @@ header {
     width: 50%;
 }
 
+.navigate-home{
+text-align: center;
+width: 25%;
+font-size: 1.3em;
+background-color: #223f4d;
+padding: 10px;
+margin: 0 auto;
+border-radius: 10px;
+}
+
 h1 {
   padding: 5px;
   margin: 5px;
