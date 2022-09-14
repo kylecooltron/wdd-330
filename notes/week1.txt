@@ -13,8 +13,9 @@ It was really easy. I want to learn more about local storage.
 </em>  
 
 What kind of limitations does localStorage have? Size limit?
-
-
+   Anwer from Google search:
+   LocalStorage should be avoided because it is synchronous and will block the main thread. It is limited to about 5MB and can contain only strings.
+   
 
 <em>_________________________________________
    Goals:  
