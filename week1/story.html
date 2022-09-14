@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+  <title>Story Editor</title>
+  <link rel="stylesheet" href="../css/basic.css" />
+</head>
+<style>
+  label, input, button, textarea, section, h1, h2{
+    padding: 1em;
+  }
+
+</style>
+<body>
+
+  <!-- back button in every project -->
+  <div id="navigate-to-portfolio-home">
+    <a href="../index.html">↖ Back to Portfolio</a>
+  </div>
+
+	<h1>Story Editor</h1>
+
+    <label for="story-name">Story Name:</label>
+    <input id="story-name" type="text"></input>
+
+    <section>
+      <button onclick="loadStory()">Load</button>
+      <button onclick="saveStory()">Save</button>
+      <button onclick="displayStory()">Display</button>
+    </section>
+
+    <label for="story-text">Story Text:</label>
+    <textarea id="story-text" placeholder="write a story here"></textarea>
+
+    <h2 id="story-display-title"></h2>
+    <section id="story-display"></section>
+
+  <script src="story.js"></script>
+</body>
+</html>
+

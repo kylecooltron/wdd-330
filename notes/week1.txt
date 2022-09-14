@@ -4,12 +4,15 @@
    Summary of Week:  
 </em> 
 
-
+I did the practice project in Web Stuff & Things - local storage
+It was really easy. I want to learn more about local storage.
 
 
 <em>_________________________________________
    Questions:  
 </em>  
+
+What kind of limitations does localStorage have? Size limit?
 
 
 

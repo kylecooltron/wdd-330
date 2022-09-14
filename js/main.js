@@ -9,8 +9,8 @@ const links = [
         url: "notes/notes.html?week=1",
       },
       {
-        label: "upcoming assignment",
-        url: "#",
+        label: "Doing Stuff w/ Things - local storage",
+        url: "week1/story.html",
       },
     ]
   },

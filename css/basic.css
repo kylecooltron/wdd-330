@@ -1,0 +1,19 @@
+
+
+
+#navigate-to-portfolio-home{
+  text-align: center;
+  width: 25%;
+  font-size: 1.3em;
+  background-color: #223f4d;
+  padding: 10px;
+  margin: 1em auto;
+  border-radius: 10px;
+  border: 1px solid rgb(74, 149, 192);
+}
+#navigate-to-portfolio-home a{
+  color: rgb(171, 217, 248);
+}
+#navigate-to-portfolio-home a:hover{
+  color: rgb(126, 159, 248);
+}
