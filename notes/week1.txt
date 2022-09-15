@@ -10,7 +10,10 @@ It was really easy. I want to learn more about local storage.
 
 <em> Sitepoint Videos </em>
 I really liked the Sitepoint videos about Mobile UX.
-It opened my eyes to a few things I can keep in mind that will make users experience on my web projects smooth and easy (Ex: reachability). I want to think about what the user most likely wants to acheive on my site, and eliminate unneccesary steps, as well as making icons, buttons, labels, etc. clear and simple.
+It opened my eyes to a few things I can keep in mind that will make users experience on my web projects smooth and easy (Ex: reachability).
+I want to think about what the user most likely wants to acheive on my site,
+ and eliminate unneccesary steps, as well as making icons, 
+buttons, labels, etc. clear and simple.
 
 I also want to use SVG graphics this semester.
 I've never put my nav bar at the bottom of the screen.
