@@ -6,10 +6,45 @@
 
 
 
+<b>Chapter 2 of JavaScript Ninja:</b>
+It was mostly a review for me, but a few things stood out:
+"A JavaScript ninja should always use hard equality when testing if two values are equal"
+At work we use an extension that makes sure we always declare variable types, and expected argument types. 
+This is extremely useful as it helps us reduce unexpected bugs.
+It was also interesting to learn more about type coercion and null/undefined.
+
+I'm going to try really hard this semester to use best practices. (even using semicolons if I remember)
+
+
+
+<b>Chapter 3 of JavaScript Ninja:</b>
+
+Usually I have had to search online every time I want to use a built in array method
+ to remember what it's name is.
+Hopefully I can start to remember some of these. They are extremely useful! I really like the new spread opperator!
+
+Sets and Maps, I think there are probably quite a few instances when it is useful to store a list of unique values.
+I also think it's cool that you can make a map that uses numbers as keys
+
+
+<b>Chapter 4 of JavaScript Ninja:</b>
+
+Alright so I've used .map .filter and .reduce before, but now I feel I'll be able to see more scenerios to use them.
+I have been using arrow functions for a while too. Callback functions are something I use sometimes when working with API's,
+but I don't really look for ways to use them to optimize my code on a day to day basis. I'll start looking for
+more ways to utilize them.
+
+
+
+
 
 <em>_________________________________________
    Questions:  
 </em>  
+
+I want to learn more about common situations when you would use different data structure types.
+
+
 
 
 
@@ -17,7 +52,8 @@
    Goals:  
 </em> 
 
-
+- use hard equality checks and semicolons
+- Use callback functions this semester
 
 
 <em>_________________________________________
