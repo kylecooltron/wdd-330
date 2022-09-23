@@ -4,6 +4,13 @@
    Summary of Week:  
 </em> 
 
+Well, I stayed up super late polishing up my basic arithmatic calculator.
+It was pretty fun to figure out how to parse a forumula string and run the operations 
+in the right order.
+I tried to prevent errors, and I think I still have some random console.log's that I
+should probably get rid of. Either way this helped me get back into javascript.
+A few of the Elequent Javascript solutions helped me with strings, particularly 3.3 "Bean counting"
+
 
 
 <b>Chapter 2 of JavaScript Ninja:</b>
@@ -54,13 +61,14 @@ I want to learn more about common situations when you would use different data s
 
 - use hard equality checks and semicolons
 - Use callback functions this semester
+- learn more about classes and inheritance for JS
 
 
 <em>_________________________________________
    Helpful links/resources:  
 </em> 
 
-
+<a href="https://eloquentjavascript.net/code/#3.3">https://eloquentjavascript.net/code/#3.3</a>
 
 
 

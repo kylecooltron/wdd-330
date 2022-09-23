@@ -16,15 +16,15 @@ const links = [
   },
   {
     week: "Week 2",
-    active: "false",
+    active: "true",
     assignments: [
       {
         label: "Week 2 notes",
         url: "notes/notes.html?week=2",
       },
       {
-        label: "upcoming assignment",
-        url: "#",
+        label: "Calculator Delux - messing with strings and functions",
+        url: "week2/week2.html",
       },
     ]
   },

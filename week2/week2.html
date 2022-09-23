@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/basic.css" />
+    <style>
+      .number-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+      .calculator-grid {
+        display: flex;
+        margin: 0 1em;
+      }
+      .operation-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        padding: 0 1em;
+      }
+      button {
+        padding: 1em 1.5em;
+        margin: 0.5em;
+        cursor: pointer;
+      }
+      .output-grid {
+        padding: 1em 0;
+      }
+      #clear-button {
+        font-size: smaller;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- back button in every project -->
+    <div id="navigate-to-portfolio-home">
+      <a href="../index.html">↖ Back to Portfolio</a>
+    </div>
+
+    <div class="calculator-grid">
+      <div class="number-grid">
+        <span>
+          <button class="number-button">1</button>
+          <button class="number-button">2</button>
+          <button class="number-button">3</button>
+        </span>
+        <span>
+          <button class="number-button">4</button>
+          <button class="number-button">5</button>
+          <button class="number-button">6</button>
+        </span>
+        <span>
+          <button class="number-button">7</button>
+          <button class="number-button">8</button>
+          <button class="number-button">9</button>
+        </span>
+        <span>
+          <button class="number-button">0</button>
+          <button class="number-button">.</button>
+        </span>
+      </div>
+      <div class="operation-grid">
+        <button class="operation-button">+</button>
+        <button class="operation-button">-</button>
+        <button class="operation-button">*</button>
+        <button class="operation-button">/</button>
+      </div>
+    </div>
+
+    <div class="output-grid">
+      <input id="number-input" type="text" />
+      <button id="calculate-button">=</button>
+      <button id="clear-button">CLEAR</button>
+    </div>
+
+    <script>
+      const numberButtons = document.querySelectorAll(".number-button");
+      const operationButtons = document.querySelectorAll(".operation-button");
+
+      const calculateButton = document.querySelector("#calculate-button");
+      const clearButton = document.querySelector("#clear-button");
+
+      const numberInput = document.querySelector("#number-input");
+
+      function inputCharacter(char) {
+        numberInput.value += char;
+      }
+
+      const inputButtons = [...numberButtons, ...operationButtons];
+      inputButtons.forEach((element) => {
+        element.addEventListener("click", () => {
+          inputCharacter(element.innerHTML);
+        });
+      });
+
+      clearButton.addEventListener("click", () => {
+        numberInput.value = "";
+      });
+
+      function calculate(str) {
+        // if first or last characters are not number
+        if (isNaN(str[0]) || isNaN(str[str.length - 1])) {
+          // return an error
+          return "error";
+        }
+
+        // make sure no repeated non-numbers
+        let symbol = 0;
+        for (var i = 0; i < str.length; i++) {
+          if (isNaN(symbol) && isNaN(str[i])) {
+            return "error";
+          }
+          symbol = str[i];
+        }
+
+        function isNumOrDecimal(char) {
+          return !isNaN(char) || char == ".";
+        }
+
+        // gather numbers and operations into array
+        forumula_parts = [str[0]];
+        forumula_index = 0;
+        for (var i = 1; i < str.length; i++) {
+          if (
+            isNumOrDecimal(str[i]) &&
+            isNumOrDecimal(forumula_parts[forumula_index])
+          ) {
+            if (
+              str[i] == "." &&
+              forumula_parts[forumula_index].indexOf(".") > -1
+            ) {
+              // number cannot contain more than one decimal place
+              return "error";
+            }
+            forumula_parts[forumula_index] += str[i];
+          } else {
+            forumula_index++;
+            forumula_parts[forumula_index] = str[i];
+          }
+        }
+
+        console.log("forumula parts:" + forumula_parts);
+
+        function findMultiplyOrDivide(char) {
+          return char == "/" || char == "*";
+        }
+        function findAddOrSubtract(char) {
+          return char == "+" || char == "-";
+        }
+
+        attempts = 0;
+        // apply multiplication and division
+        while (
+          forumula_parts.find(findMultiplyOrDivide) != undefined &&
+          attempts < forumula_parts.length
+        ) {
+          console.log("attempt" + attempts);
+          attempts += 1;
+          // get index of operation
+          index = forumula_parts.findIndex(findMultiplyOrDivide);
+          operator = forumula_parts[index];
+          a = parseFloat(forumula_parts[index - 1]);
+          b = parseFloat(forumula_parts[index + 1]);
+          switch (operator) {
+            case "/":
+              // div by zero error
+              if (forumula_parts[index + 1] == "0") {
+                return "error";
+              }
+              forumula_parts[index - 1] = a / b;
+              forumula_parts.splice(index, 2);
+              break;
+            case "*":
+              forumula_parts[index - 1] = a * b;
+              forumula_parts.splice(index, 2);
+              break;
+          }
+          console.log("formula now: " + forumula_parts);
+        }
+
+        attempts = 0;
+        // apply addition and subtraction
+        while (
+          forumula_parts.find(findAddOrSubtract) != undefined &&
+          attempts < forumula_parts.length
+        ) {
+          attempts += 1;
+          // get index of operation
+          index = forumula_parts.findIndex(findAddOrSubtract);
+          operator = forumula_parts[index];
+          a = parseFloat(forumula_parts[index - 1]);
+          b = parseFloat(forumula_parts[index + 1]);
+          switch (operator) {
+            case "-":
+              forumula_parts[index - 1] = a - b;
+              forumula_parts.splice(index, 2);
+              break;
+            case "+":
+              forumula_parts[index - 1] = a + b;
+              forumula_parts.splice(index, 2);
+              break;
+          }
+        }
+
+        // unfortunately only
+        return forumula_parts;
+      }
+
+      calculateButton.addEventListener("click", () => {
+        numberInput.value = calculate(numberInput.value);
+      });
+    </script>
+  </body>
+</html>
