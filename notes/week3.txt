@@ -4,6 +4,42 @@
    Summary of Week:  
 </em> 
 
+<b> Object Methods: this / Chapter 5 - objects </b>
+I was impressed to learn that this can be used inside functions that
+do not belong to any specific object/class without throwing an error.
+I need to keep in mind that arrow functions reference the outer this.
+
+Example of object method:
+<sub>
+let fish = {
+   species: "Brown Trout",
+   weight_lbs: 3.25,
+
+   eatFood(){
+      fish.weight_lbs += 0.1;
+   }
+}
+</sub>
+
+I found the ES6 way of assigning properties to existing variables by
+only writing the name itself pretty interesting.
+I'm also wondering what uses I might find out of being
+able to construct property names using expressions.
+
+This is the best article I've ever read about regex expressions.
+
+DANG! I never knew that some built-in functions accept regex as arguments.
+Replace, split, etc. will be even more useful using regex.
+
+<b> Chapter 6 - DOM </b>
+document.images; I didn't know you could get a list of all images on the page that easily.
+
+getComputedStyle seems useful for copying and modifying
+
+<b> Chapter 7 - Events </b>
+
+
+
 
 
 
@@ -16,6 +52,8 @@
 <em>_________________________________________
    Goals:  
 </em> 
+
+REMEMBER objects are assigned by reference ( to clone use structuredClone() )
 
 
 
