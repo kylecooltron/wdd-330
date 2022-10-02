@@ -108,3 +108,18 @@ footer {
   font-style: italic;
   
 }
+
+
+.code-box{
+  border: 1px solid white;
+  font-size: small;
+  font-family: monospace;
+  padding: 0.5em;
+  margin: 0.5em;
+  color:rgb(142, 228, 146);
+  width: 50%;
+}
+
+b{
+  color:rgb(119, 171, 173)
+}

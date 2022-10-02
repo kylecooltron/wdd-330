@@ -10,7 +10,7 @@ do not belong to any specific object/class without throwing an error.
 I need to keep in mind that arrow functions reference the outer this.
 
 Example of object method:
-<sub>
+<div class="code-box" >
 let fish = {
    species: "Brown Trout",
    weight_lbs: 3.25,
@@ -19,7 +19,7 @@ let fish = {
       fish.weight_lbs += 0.1;
    }
 }
-</sub>
+</div>
 
 I found the ES6 way of assigning properties to existing variables by
 only writing the name itself pretty interesting.
@@ -32,21 +32,42 @@ DANG! I never knew that some built-in functions accept regex as arguments.
 Replace, split, etc. will be even more useful using regex.
 
 <b> Chapter 6 - DOM </b>
-document.images; I didn't know you could get a list of all images on the page that easily.
+<div class="code-box" >
+document.images
+</div> 
+
+I didn't know you could get a list of all images on the page that easily.
 
 getComputedStyle seems useful for copying and modifying
 
 <b> Chapter 7 - Events </b>
 
+I want to remember that I can remove event listeners.
+I've used:
+<div class="code-box" >
+event.preventDefault();
+</div> before, but I don't remember why. I think I was doing
+something weird with a form. Possibly with react/PHP.
 
+I'm trying to think of a scenerio where "capturing" would be neeful.
 
+Okay... <h2>Event Delegation</h2> is awesome!
+I could have used that in my recent project and it would have made life way more simple.
 
-
+<b> Code Sandbox 14. DOM</b>
+so I didn't realize that you could use recursion to make something
+keep running (cat animation for example) without breaking
+the rest of the website. Javascript is cool!!
 
 <em>_________________________________________
    Questions:  
 </em>  
 
+How slow is Javascript? It is a really cool language, and they
+seem to keep updating it with tons of features. 
+I'm just wonding if a Javascript heavy site ends up being too
+slow for people with bad connections. I like the idea of making
+websites super interactive, and eventually designing web-apps.
 
 
 <em>_________________________________________
