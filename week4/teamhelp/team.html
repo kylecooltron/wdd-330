@@ -102,6 +102,23 @@
               // end this function so they won't see the "draw" alert
               return;
             }
+            /* !! simple version of above without using ternary operation and arrow function:
+            function reduceWinCase(previous, current){
+              // if any past iteration was false
+              if(previous == false){
+                return false;  //stay false
+              }
+              // otherwise, if this index in the case matches the player symbol
+              if(td_list[current].innerHTML == player){
+                return true;  // return true
+              }else{ return false; }
+            }
+            // reduce to true if all were true, or false if ANY were false
+            if(win_case.reduce(reduceWinCase, true)){
+                alert(`Player ${player} wins!`)
+                gameOver = true;
+                return;
+              } */
         }
         /* put this last because it's not neccesarily a draw unless
            there is no other win condition on last move */
