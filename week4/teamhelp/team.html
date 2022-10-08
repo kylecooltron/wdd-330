@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Week 4 Team Assignment</title>
+    <style>
+      /* style the board*/
+      .board {
+        width: 400px;
+        height: 400px;
+      }
+
+      .board td,
+      .board tr {
+        width: 33.3%;
+        height: 33.3%;
+      }
+
+      .board td {
+        border-right: 1px solid black;
+        border-bottom: 1px solid black;
+        font-size: 4em;
+        text-align: center;
+      }
+
+      .board td:last-child {
+        border-right: 0;
+      }
+
+      .board tr:last-child td {
+        border-bottom: 0;
+      }
+      #reset{
+        font-size: larger;
+      }
+    </style>
+  </head>
+  <body>
+    <table class="board">
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+
+    <button id="reset">Reset</button>
+
+    <script>
+      const board = document.querySelector(".board");
+      const reset_button = document.getElementById("reset");
+
+      const player1 = "X";
+      const player2 = "O";
+      let player = player1;
+
+      let playCount = 0;
+      let gameOver = false;
+
+      function checkForWin(player) {
+        // it's only possible for the player that is making a move to win,
+        // so we will if their symbol matches these cases
+        let win_cases = [
+          // rows
+          [0,1,2],
+          [3,4,5],
+          [6,7,8],
+          // columns
+          [0,3,6],
+          [1,4,7],
+          [2,5,8],
+          // diagonals
+          [0,4,8],
+          [2,4,6],
+        ];
+        // get list of all <td> children of board
+        td_list = board.querySelectorAll("td");
+        // for each possible win case of win_cases list
+        for(let win_case of win_cases){
+          if( // reduce will return true if all values it checks reduce to true
+              win_case.reduce((previous, current) => (
+                previous == false ? false : td_list[current].innerHTML == player
+                /* if the previous value was false then (?) stay false, 
+                   else (:) check if td at this index equals player (returns true or false) */
+              ), true)
+            ){
+              // the player has won
+              alert(`Player ${player} wins!`)
+              gameOver = true;
+              // end this function so they won't see the "draw" alert
+              return;
+            }
+        }
+        /* put this last because it's not neccesarily a draw unless
+           there is no other win condition on last move */
+        if (playCount == 9){ alert("draw"); gameOver=true; }
+      }
+
+      function gameMove(event) {
+        // if target square is not empty, or game is already over
+        if (event.target.innerHTML != "" || gameOver == true){
+          // cancel this event
+          return;
+        }
+        // apply player move to board
+        event.target.innerHTML = player;
+        // increment play count
+        playCount++;
+        // check whether a player has won
+        checkForWin(player);
+        // toggle player turn
+        player = player === player1 ? player2 : player1;
+        /*        this  if^   condition    else^ this  */
+      }
+
+      // reset button
+      function resetBoard() {
+        // get list of all <td> children of board
+        td_list = board.querySelectorAll("td");
+        // for each td of td_list
+        for(td of td_list){
+          td.innerHTML = "";
+        }
+        // reset game variables
+        gameOver = false;
+        playCount = 0;
+      }
+
+      board.addEventListener("click", gameMove);
+      reset_button.addEventListener("click", resetBoard);
+    </script>
+  </body>
+</html>
