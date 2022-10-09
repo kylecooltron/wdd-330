@@ -4,21 +4,72 @@
    Summary of Week:  
 </em> 
 
+ I learned more about JavaScript syntax and built-in array functions this week
+ while creating the three examples for my team of how to check for wins
+ in Tic-Tac-Toe.
+
+ I was able to use what I learned last week about calling the .querySelector methods
+ on an element to return results found within an elements child tree.
+ This simplified clearing the Tic-Tac-Toe board:
+<div class="code-box" >
+    board_tds = board.querySelectorAll("td")
+    for(td of board_tds){td.innerText="";}
+
+</div>
+
+<b> Chapter 8 - Forms </b>
+I think it's really cool that you can access a form element by it's name
+<div class="code-box" >
+const form = document.forms.form_name;
+
+</div>
+As well as the ways I learned to access the elements in the form,
+either by form.name or form.elements to get an array.
+
+This was a good reminder about input placeholder text,
+I just made a form for another class, and I should have used that to make it look cleaner.
+
+<b> Chapter 12 - OOP </b>
+
+Ah, I've been wondering how to do constructor functions and classes in JS.
+Good to know! I'll try to start using those in the weekly projects.
+
+Interesting that you can add more methods to built-in objects.
+
+chaining functions is awesome.
 
 
+<b> Modern Javascript </b>
+
+I need to be better about using modules
+REMEMBER export, import {} from '';
+
+USE template files!! Super cool.
+
+I want to learn more about deploying, transpiling, minifying..
 
 <em>_________________________________________
    Questions:  
 </em>  
 
+Are we allowed to use Jquery in this class? I thought I read that we are not.
+I'll double check.
 
 
 <em>_________________________________________
    Goals:  
 </em> 
 
+Remember that the blur and changed events are useful for security purposes.
+USE PLACEHOLDER TEXT IN FORMS! 😉 Simplify.
+autofocus the first input on a dedicated form page to save the user time.
 
+remember to use the [...form.powers] spread operator to turn node lists into arrays,
+so you can use the array methods
 
+You can disable the submit button with "disabled" attribute
+
+Remember to use accessor functions and keep things private
 
 <em>_________________________________________
    Helpful links/resources:  

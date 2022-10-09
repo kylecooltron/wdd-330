@@ -44,15 +44,15 @@ const links = [
   },
   {
     week: "Week 4",
-    active: "false",
+    active: "true",
     assignments: [
       {
         label: "Week 4 notes",
         url: "notes/notes.html?week=4",
       },
       {
-        label: "upcoming assignment",
-        url: "#",
+        label: "Messing with forms",
+        url: "week4/week4.html",
       },
     ]
   },
