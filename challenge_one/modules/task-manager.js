@@ -1,9 +1,9 @@
 import Task from './task.js';
 
 export default class TaskManager {
-  constructor(gui) {
+  constructor(gui, taskList = []) {
     this.gui = gui;
-    this.taskList = [];
+    this.taskList = taskList;
     this.auto_increment_id = 0;
     this.filter = "all";
   }
@@ -19,6 +19,14 @@ export default class TaskManager {
   }
 
   // control - - - - - - - -
+
+  createTasksFromList(list){
+    return;
+  }
+
+  createTaskFromGui(){
+    return;
+  }
 
   applyFilter(method){
     // default is "all"
@@ -60,15 +68,13 @@ export default class TaskManager {
       }
     });
     
-  //   function onEvent(event) {
-  //     if (event.key === "Enter") {
-  //         this.createTask();
-  //     }
-  // });
-    
   }
 
   createTask(){
+    /*
+      MODIFY TO USE ARGUMENTS (reusable from gui and from ls list)
+    */
+
     // if the textbox is not blank
     if(this.gui.name().value != ""){
       // create a new task

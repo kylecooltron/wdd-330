@@ -4,19 +4,51 @@
    Summary of Week:  
 </em> 
 
+First of all, writing unit tests helps me find bugs in my 
+code all the time at work. Secondly, using mock data and functions
+makes it so I don't have to wait for real data responses from the server to
+test my program. It saves a lot of time. So I really get the importance of testing.
+
+I haven't been using try-catch or exception handling much with JavaScript.
+
+Jest has some interesting syntax
+<div class="code-box" >
+it('description', () => {
+    expect( function ).toThrow();
+});
+
+test('descro[topm', () => {
+    expect( function ).toBe(false);
+});
 
 
+</div>
 
 <em>_________________________________________
    Questions:  
 </em>  
 
-
+Let's see, it looks like "expect" is not a thing unless you are using a framework.
+We were told we couldn't use libraries in this course, eh?
 
 <em>_________________________________________
    Goals:  
 </em> 
 
+Look for places to use try-catch.
+<div class="code-box" >
+try {
+         //code
+    } catch(error) {
+        // handle
+    } finally {
+        // cleanup
+    }
+
+</div>
+
+Write tests.
+Limit possible user-caused errors in Todo program.
 
 
 
@@ -24,6 +56,13 @@
    Helpful links/resources:  
 </em> 
 
+TRY 
+<div class="code-box" >
+'use strict';
+debugger; // acts as a breakpoint in debugging tool
+const error = new Error(); // custom error
+throw new Error("blah");
+</div>
 
 
 

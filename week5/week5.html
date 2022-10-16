@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 4</title>
+  <link rel="stylesheet" href="../css/basic.css" />
+</head>
+<body>
+
+  <!-- back button in every project -->
+  <div id="navigate-to-portfolio-home">
+    <a href="../index.html">↖ Back to Portfolio</a>
+  </div>
+
+
+  <p>recursive loop using try catch and strict mode testing</p>
+
+  <h3 id="tester">woah</h3>
+  <p id="log">value</p>
+  <button onclick="start()">start </button>
+  <button onclick="test()">test </button>
+
+<script>
+
+const tester = document.querySelector("#tester");
+const log = document.querySelector("#log");
+
+function recursive_test_tryblock( startval ){
+try{
+  if(startval != 100){
+    throw new Error("bad value");
+    log.value += "bad value";
+  }
+}catch(error){
+  console.log(error);
+  startval += 1;
+  if(startval > 100){
+    startval = 0;
+  }
+  tester.innerHTML = startval;
+
+  setTimeout(() => {
+    recursive_test_tryblock(startval)}
+    , 10);
+
+}
+}
+
+function yeah(){
+  undefinedvar = 100;
+}
+function yeah_strict(){
+  'use strict';
+
+  undefinbah = 10;
+}
+
+function start(){
+  recursive_test_tryblock(Math.random() * 98);
+}
+
+function isHundred(){
+  return tester.innerHTML === "100";
+}
+
+function test(){
+let res = isHundred();
+log.textContent = res;
+
+if(res){
+  yeah();
+  console.log("yeah");
+}else{
+  yeah_strict();
+  console.log("yeah strict");
+}
+
+}
+
+</script>
+</body>
+</html>

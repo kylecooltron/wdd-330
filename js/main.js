@@ -58,15 +58,19 @@ const links = [
   },
   {
     week: "Week 5",
-    active: "false",
+    active: "true",
     assignments: [
       {
         label: "Week 5 notes",
         url: "notes/notes.html?week=5",
       },
       {
-        label: "upcoming assignment",
-        url: "#",
+        label: "Debugging and Testing",
+        url: "week5/week5.html",
+      },
+      {
+        label: "ToDo App (in progress)",
+        url: "challenge_one/index.html",
       },
     ]
   },
