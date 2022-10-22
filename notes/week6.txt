@@ -4,7 +4,9 @@
    Summary of Week:  
 </em> 
 
-
+I've mostly just been working on the TODO app.
+I'm pretty happy with it, although certain things could probably be made in a more
+resusable fashion. Specifically things like the ls system. It could be more abstract and generic.
 
 
 <em>_________________________________________

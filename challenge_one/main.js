@@ -1,4 +1,4 @@
-import StartApp from '/modules/todo.js';
+import StartApp from './modules/todo.js';
 
 window.onload = (event) => {
 

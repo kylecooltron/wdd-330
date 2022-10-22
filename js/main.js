@@ -76,7 +76,7 @@ const links = [
   },
   {
     week: "Week 6",
-    active: "false",
+    active: "true",
     assignments: [
       {
         label: "Week 6 notes",
