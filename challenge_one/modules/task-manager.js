@@ -1,9 +1,10 @@
 import Task from './task.js';
 
 export default class TaskManager {
-  constructor(gui, taskList = []) {
+  constructor(gui, lsManager) {
     this.gui = gui;
-    this.taskList = taskList;
+    this.lsManager = lsManager;
+    this.taskList = [];
     this.auto_increment_id = 0;
     this.filter = "all";
   }
@@ -21,18 +22,26 @@ export default class TaskManager {
   // control - - - - - - - -
 
   createTasksFromList(list){
-    return;
+    list.forEach(task => {
+      this.createTask(task.text, task.complete);
+    });
   }
 
   createTaskFromGui(){
-    return;
+    // if the textbox is not blank
+    if(this.gui.name().value != ""){
+      // create a task
+      this.createTask(this.gui.name().value);
+      // reset the textbox
+      this.gui.name().value = "";
+    }
   }
 
   applyFilter(method){
     // default is "all"
     this.filter = method;
     // render the filtered list
-    this.renderTasks();
+    this.refresh();
   }
 
   getFilteredTasks(){
@@ -51,7 +60,7 @@ export default class TaskManager {
   addInterfaceEventListeners(){
     // set event listeners for gui elements
     this.gui.create().addEventListener("click",() => {
-      this.createTask();
+      this.createTaskFromGui();
     });
     this.gui.byAll().addEventListener("click",() => {
       this.applyFilter("all");
@@ -64,21 +73,17 @@ export default class TaskManager {
     });
     this.gui.name().addEventListener('keydown',(event) => {
       if (event.key === "Enter") {
-        this.createTask();
+        this.createTaskFromGui();
       }
     });
     
   }
 
-  createTask(){
-    /*
-      MODIFY TO USE ARGUMENTS (reusable from gui and from ls list)
-    */
-
+  createTask(name, complete = false){
     // if the textbox is not blank
-    if(this.gui.name().value != ""){
+    if(name != ""){
       // create a new task
-      const task = new Task(this.getUniqueId(), this, this.gui.name().value);
+      const task = new Task(this.getUniqueId(), this, name, complete);
       // add new task to task list
       this.taskList.push(task);
       // if user is only looking at complete tasks
@@ -87,19 +92,22 @@ export default class TaskManager {
         this.applyFilter("all");
       }
       // render all tasks
-      this.renderTasks();
-      this.gui.name().value = "";
+      this.refresh();
     }
   }
 
   refresh(){
+    // re-render all tasks
     this.renderTasks();
+    // save list of tasks in local storage
+    this.lsManager.saveTaskList(this.taskList);
   }
 
   removeTask(id){
     this.taskList = this.taskList.filter(task => (task.id != id))
-    this.renderTasks();
+    this.refresh();
   }
+
 
   // rendering - - - - - - -
 
@@ -116,6 +124,7 @@ export default class TaskManager {
     if(tasks.length == 0){
       this.gui.list().innerHTML = `No ${this.filter != "all" ? this.filter : ""} tasks to show.`
     }
+
   }
 
   renderTask(task){

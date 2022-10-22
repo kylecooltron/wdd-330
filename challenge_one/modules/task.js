@@ -11,6 +11,9 @@ export default class Task {
   setText(text){
     this.text = text;
   }
+  getText(){
+    return this.text;
+  }
   setComplete(complete){
     this.complete = complete;
     this.manager.refresh();

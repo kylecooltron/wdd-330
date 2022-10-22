@@ -69,7 +69,7 @@ const links = [
         url: "week5/week5.html",
       },
       {
-        label: "ToDo App (in progress)",
+        label: "ToDo App",
         url: "challenge_one/index.html",
       },
     ]
@@ -83,8 +83,8 @@ const links = [
         url: "notes/notes.html?week=6",
       },
       {
-        label: "upcoming assignment",
-        url: "#",
+        label: "ToDo App",
+        url: "challenge_one/index.html#",
       },
     ]
   },

@@ -1,24 +1,13 @@
-import TaskInterface from './modules/task-interface.js';
-import TaskManager from './modules/task-manager.js';
-
-
-
+import StartApp from '/modules/todo.js';
 
 window.onload = (event) => {
 
-  const taskInterface = new TaskInterface(
-    document.getElementById("task-list"),
-    document.getElementById("task-count"),
-    document.getElementById("filter-by-all"),
-    document.getElementById("filter-by-active"),
-    document.getElementById("filter-by-completed"),
-    document.getElementById("task-name"),
-    document.getElementById("add-task-btn"),
-  );
+  document.addEventListener('keydown',(event) => {
+    // escape key to clear all local storage (for testing)
+    if (event.key === "Escape") {
+      localStorage.clear();
+    }
+  });
 
-  // create task manager
-  const taskManager = new TaskManager(taskInterface);
-  // start task manager
-  taskManager.addInterfaceEventListeners();
-
+  StartApp();
 }
