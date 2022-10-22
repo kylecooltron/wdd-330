@@ -30,9 +30,9 @@ export default class LocalStorageManager {
   }
 
   saveTaskList(taskList){
+    // initialize data list
+    const data = []
     if(taskList && taskList.length){
-      // initialize data list
-      const data = []
       // create list of dictionaries for each task
       taskList.forEach(task => {
         data.push(
@@ -44,9 +44,9 @@ export default class LocalStorageManager {
           }
         )
       });
-      // save data
-      localStorage.setItem(this.ls_task_list_reference, JSON.stringify(data));
     }
+    // save data even when it's blank so deleting all tasks works
+    localStorage.setItem(this.ls_task_list_reference, JSON.stringify(data));
   }
 
 }
