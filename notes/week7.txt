@@ -4,6 +4,29 @@
    Summary of Week:  
 </em> 
 
+Ch11: Further Functions
+
+Wow! This chapter has all sorts of good stuff. I'm not sure what exact situation I would
+need to have a function rewrite itself, but it's cool to know that is possible. I suppose
+there are applications if I needed to use recursion.
+
+I could have used an IIFE  at work the other day. I wanted to contain code just to keep it
+seperate and nice, but didn't really want to pass and return variables. I wonder if IIFE  would have helped.
+It's nice to keep things where you can find them so you don't have to jump around to a bunch
+of functions to find out what they do. I suppose I could have just used brackets to close it off.
+
+I haven't really spent any time making javascript backwards compatible for other browsers.
+
+I really like the idea of using recursion, but I rarely find a need. I need to see more examples.
+
+I think I have a decent grasp on Async JS, but I want to learn more about newer ways of doing things.
+I don't think most people are using vanilla JS nowadays.
+
+I spent a long time making a special quiz app this week for the BYU Provo Library
+feel free to check it out:
+<a href="https://kylecooltron.github.io/library-quiz/">
+https://kylecooltron.github.io/library-quiz/
+</a>
 
 
 
@@ -11,12 +34,14 @@
    Questions:  
 </em>  
 
+Does Javascript also do walrus assignments :=  Like python ? Or generators?
 
 
 <em>_________________________________________
    Goals:  
 </em> 
 
+Look at examples of recursion.
 
 
 
@@ -25,7 +50,10 @@
 </em> 
 
 
-
+<a href="https://stackoverflow.com/questions/63121979/is-there-a-walrus-operator-in-node-js">
+https://stackoverflow.com/questions/63121979/is-there-a-walrus-operator-in-node-js
+</a>
+looks like assignment and compare in one line is possible without a walrus operator in JS.
 
 
 

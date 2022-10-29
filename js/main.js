@@ -90,15 +90,15 @@ const links = [
   },
   {
     week: "Week 7",
-    active: "false",
+    active: "true",
     assignments: [
       {
         label: "Week 7 notes",
         url: "notes/notes.html?week=7",
       },
       {
-        label: "upcoming assignment",
-        url: "#",
+        label: "Team Assignment",
+        url: "week7/team/index.html",
       },
     ]
   },
