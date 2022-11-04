@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+
+    @keyframes clockreverse 
+    {
+      from {transform: rotate(0)}
+      to {transform: rotate(-360deg);}
+    }
+
+    .clock-container
+    {
+      
+      position: fixed;
+      text-align: center;
+      animation: clockreverse 10s linear infinite;
+      width: 300px;
+    margin-left: 30%;
+    top: 20em;
+    transform: translate(-100%, 0);
+    }
+
+    @keyframes clockarm 
+    {
+      from {transform: rotate(0) translateX(100px)}
+      to {transform: rotate(360deg) translateX(100px);}
+    }
+
+    @keyframes clockhand
+    {
+      from {transform: rotate(0)  translateX(200px) rotate(0)}
+      to {transform: rotate(360deg) translateX(200px) rotate(360deg)}
+    }
+
+    .clock-arm
+    {
+      transform: translateX(100px);
+      animation: clockarm 2s linear infinite;
+    }
+
+    .clock-spin
+    {
+      animation: clockhand 2s linear infinite;
+    }
+
+    .container
+    {
+      text-align: center;
+      position: relative;
+      margin: 1em auto;
+      width: 100%;
+    }
+
+
+    .myCanvas {
+    border: dotted 2px black;
+}
+
+
+  </style>
+    <link rel="stylesheet" href="../css/basic.css" />
+
+</head>
+<body>
+
+
+    <!-- back button in every project -->
+    <div id="navigate-to-portfolio-home">
+      <a href="../index.html">↖ Back to Portfolio</a>
+    </div>
+
+
+
+  <div class="container">
+  <div class="clock-container">
+    I AM THE CLOCK
+    <div class="clock-arm" >ARM ARM ARM ARM</div>
+    <div class="clock-spin">SPIN SPIN SPIN</div>
+  </div>
+
+
+  <canvas id="myCanvas" class="myCanvas" width="500" height="500">
+    Sorry! Your browser doesnt support Canvas.
+</canvas>
+
+<p>
+  click-n-drag to draw on the canvas
+</p>
+<p>
+
+  I really didn't try to make this code very professional.
+  I'm mostly just testing around with different things to learn
+  what they do.
+
+</p>
+
+
+</div>
+
+<script>
+
+var drawing = false;
+
+var canvas = document.getElementById("myCanvas");
+var context = canvas.getContext("2d");
+var mouseX = 0;
+var mouseY = 0;
+
+var col_a = 0;
+var col_b = 70;
+var col_c = 200;
+
+var last_x = 0;
+var last_y = 0;
+
+
+var t = null;
+context.strokeStyle = "red";
+
+canvas.addEventListener('mousedown', () => {
+
+  if(!drawing){
+  drawing = true;
+
+last_x = -1;
+last_y = -1;
+
+
+draw();
+console.log("draw");
+  }
+
+})
+
+document.addEventListener('mouseup', (e) => {
+  drawing = false;
+  if(t){
+    clearInterval(t);
+    t = null;
+  }
+ 
+
+})
+
+
+
+
+function draw(){
+
+ 
+var viewportOffset = canvas.getBoundingClientRect();
+// these are relative to the viewport, i.e. the window
+var top = viewportOffset.top;
+var left = viewportOffset.left;
+
+
+col_a += 0.1;
+ col_b -= 0.3;
+ col_c += 0.5;
+
+
+
+context.strokeStyle = `rgb(${Math.cos((col_a))*255}, ${Math.cos((col_b))*255}, ${Math.sin((col_c)*255)})`;
+if(last_x != -1 && last_y != -1){
+  context.beginPath();
+
+context.moveTo(last_x, last_y);
+
+context.lineTo(mouseX - left, mouseY - top);
+context.stroke();
+
+
+}
+
+last_x = mouseX - left;
+last_y =  mouseY - top;
+
+
+  if(drawing){
+    if(!t){
+      t = setInterval(draw,10);
+    }
+  }
+}
+
+document.onmousemove = function(e)
+{
+     mouseX = e.clientX;
+     mouseY = e.clientY;
+    // var t = setTimeout(mouse_position,100);
+}
+
+
+
+</script>
+
+</body>
+</html>

@@ -104,15 +104,19 @@ const links = [
   },
   {
     week: "Week 8",
-    active: "false",
+    active: "true",
     assignments: [
       {
         label: "Week 8 notes",
         url: "notes/notes.html?week=8",
       },
       {
-        label: "upcoming assignment",
-        url: "#",
+        label: "Expirementing with transform and canvas",
+        url: "week8/week8.html",
+      },
+      {
+        label: "Team Assignment",
+        url: "week8/team/index.html",
       },
     ]
   },

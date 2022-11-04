@@ -5,17 +5,37 @@
 </em> 
 
 
+I've used translate a number of times when centering things or doing weird
+stuff with popups.
 
+I want to learn more about matrix transforms and how to make subtle but 
+interesting styles on my pages.
 
+Remember: transforms don't work on inline elements.
+
+I've used transitions before and am fairly familiar with it.
+I used animation and transform in a little test project in 
+the Week 8 folder so I could expirement with extending
+an arm outward, rotating it, and then sticking another elements
+at the end of that rotating arm that rotates itself. It was
+a success! (Although the code is pretty messy).
+
+I messed around with the Canvas tag and got it to draw colorful lines when you click on it. 
+
+I'm excited to see what the next big project is for this class.
 <em>_________________________________________
    Questions:  
 </em>  
 
+Is the OpenGL stuff for browsers difficult to implement?  How hard would it be just to put a spinning model somewhere on the page?
 
 
 <em>_________________________________________
    Goals:  
 </em> 
+
+I want to expirement with apply translations in a certain order.
+In fact, I think I'll go make a page right now and mess with that.
 
 
 
@@ -25,9 +45,15 @@
 </em> 
 
 
+I really like this visual representation of bezier curves
+used for timing:
+<a href="https://cubic-bezier.com/"?> cubic bezier </a>
 
 
-
+<small> REMEMBER:
+"If using the shorthand property, be careful with your animation-name.
+You want to avoid accidentally using any animation property key term such
+as forwards, running, or alternate"</small>
 
 
 <em>
