@@ -98,7 +98,7 @@ const links = [
       },
       {
         label: "Team Assignment",
-        url: "week7/team/index.html",
+        url: "week7/Team/index.html",
       },
     ]
   },
