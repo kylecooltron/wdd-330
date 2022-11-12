@@ -5,27 +5,86 @@
 </em> 
 
 
+<b> The Window Object </b>
 
+I may use 
+<div class="code-box" >
+window.prompt('Please enter your name:');
+</div>
+To get the users name for the highscore table for my project.
+Then again, it would probably be fairly simple to make my own form that
+uses validation and such.
+
+I may also end up setting the window location with javascript to navigate
+between rooms in the game (highscore entry, gameplay room, etc.)
+window.location.href = "blah"
+pathname also seems useful
+
+Hmmm... interesting:
+<div class="code-box" >
+window.history.go(-1);
+</div>
+This could be useful in cases where I don't know exactly where the user 
+just came from but I want to send them back.
+
+
+It may be nice to know the available screen width for mobile
+ devices in Javascript
+
+ Learning about injecting html using document.write just makes
+ me want to learn more about Angular or React.
+
+I'm trying to think about how cookies could be useful.
+Obviously you can greet a user of the website if you get their name, or
+let the server know who is visiting.. hmm. It's surprisingly easy to set them.
+
+I will definitely be using timeouts and intervals for my game project.
+Before this class I had never really used data attributes. I bet they 
+will be useful for my game too!!! I'm excited to get to work after this 
+reading.
+
+remember: htmlelementreference.dataset.datasetnamewhatever;
+
+I had no idea an event was fired every time you mess with local storage.
+remember: addEventListener('storage', (event) => ...
+Wow! Geolocation is cool (and creepy). WGS84 ellipsoid
+
+web sockets seem pretty cool. could that be used for multiplayer games?
+
+good reminders about canvas drawing.
 
 <em>_________________________________________
    Questions:  
 </em>  
 
+In what situation would using a "worker" be helpful or neccesary?
+Maybe for a web app that is doing more than one thing at once?
 
 
 <em>_________________________________________
    Goals:  
 </em> 
 
+NEVER USE THIS:
+<div class="code-box" >
+const popup = window.open("blah","blah");
+</div>
 
+Oh, boy.. window.moveTo sounds incredibly annoying as well.
 
 
 <em>_________________________________________
    Helpful links/resources:  
 </em> 
 
-
-
+No sense rewriting the wheel, maybe I'll save this for later:
+<div class="code-box" >
+const cookies = document.cookie.split("; ");
+for (crumb of cookies){
+    const [key,value] = crumb.split("=");
+    console.log(`The value of ${key} is ${value}`);
+}
+<div>
 
 
 

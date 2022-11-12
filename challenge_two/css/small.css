@@ -1,0 +1,28 @@
+
+
+
+#app-container
+{
+text-align: center;
+position: relative;
+}
+
+#gameplay-area
+{
+  background-color: black;
+  width: 100%;
+  max-width: 600px;
+  height:80vh;
+  border-radius: 1em;
+  margin: 0 auto;
+}
+
+.fixed-message
+{
+  font-size: 2.5em;
+  position: fixed;
+  top: 50vh;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+}

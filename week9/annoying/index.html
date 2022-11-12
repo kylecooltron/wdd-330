@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<link rel="stylesheet" href="../../../css/basic.css" />
+
+<body>
+
+     <!-- back button in every project -->
+     <div id="navigate-to-portfolio-home">
+      <a href="../../../index.html">↖ Back to Portfolio</a>
+    </div>
+
+
+  
+<button onclick=annoy()>CLICK HERE TO BE ANNOYED</button> 
+
+
+<p>
+
+  try to catch the moving popup
+
+</p>
+
+<div style="background-color:silver;">
+<b>
+  CODE:
+  <br><br>
+  function annoy(){ <br>
+    go = window.open("annoy.html", 'popUpWindow', "_blank");<br>
+    go.resizeTo(500,400);<br>
+    <br>
+
+  function displayHello(){<br>
+    go.moveTo((Math.random()*1900),(Math.random()*1000) );<br>
+    console.log("annoy");<br>
+  }<br>
+  
+  <br>
+  setInterval(displayHello, 300);<br>
+  }<br>
+
+
+</b>
+
+</div>
+</body>
+
+
+<script>
+
+
+function annoy(){
+  go = window.open("annoy.html", 'popUpWindow', "_blank");
+  go.resizeTo(500,400);
+function displayHello(){
+  go.moveTo((Math.random()*1900),(Math.random()*1000) );
+  console.log("annoy");
+}
+setInterval(displayHello, 300);
+}
+
+
+
+
+</script>
+</html>

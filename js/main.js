@@ -122,15 +122,23 @@ const links = [
   },
   {
     week: "Week 9",
-    active: "false",
+    active: "true",
     assignments: [
       {
         label: "Week 9 notes",
         url: "notes/notes.html?week=9",
       },
       {
-        label: "upcoming assignment",
-        url: "#",
+        label: "Team assignment - team version",
+        url: "week9/team/team_version/team.html",
+      },
+      {
+        label: "Team assignment - kyle's expirement version",
+        url: "week9/team/kyle_expirement/index-START.html",
+      },
+      {
+        label: "Challenge Two - Star Swiper Skeleton",
+        url: "challenge_two/index.html",
       },
     ]
   },

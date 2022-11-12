@@ -1,7 +1,7 @@
 html {
   font-size: 10px;
-  background: url(http://i.imgur.com/b9r5sEL.jpg) bottom center;
-  background-size: cover;
+  /* background: url(http://i.imgur.com/b9r5sEL.jpg) bottom center;
+  background-size: cover; */
 }
 
 body,html {
@@ -10,27 +10,38 @@ body,html {
   font-family: sans-serif;
 }
 
+p{
+  font-size: 2em;
+}
+
+.container 
+{
+  font-size: 10px;
+}
+
 .keys {
   display: flex;
   flex: 1;
-  min-height: 100vh;
+  min-height: 70vh;
   align-items: center;
   justify-content: center;
   position: fixed;
 }
 
 .key {
+  
   border: .4rem solid black;
   border-radius: .5rem;
   margin: 1rem;
   font-size: 1.5rem;
   padding: 1rem .5rem;
-  transition: all .07s ease;
+  transition: all .1s ease;
   width: 10rem;
   text-align: center;
   color: white;
   background: rgba(0,0,0,0.4);
   text-shadow: 0 0 .5rem black;
+  
 }
 
 .playing {
