@@ -16,6 +16,14 @@
         <a href="../../../index.html">↖ Back to Portfolio</a>
       </div>
   
+<button id="but1" >
+  KYLES CUSTOM MOVEMENT
+</button>
+
+<button id="but2" >
+  STRETCH GOAL MOVEMENT
+</button>
+
 
     <p>
       Requirements were met during meeting and in the "team version".
@@ -76,10 +84,34 @@
         <audio data-key="75" src="../sounds/tom.wav"></audio>
         <audio data-key="76" src="../sounds/tink.wav"></audio>
 
-</div>
+  </div>
+
 
 <script>
 
+
+// default
+let movementFunc = moveKeyKyles;
+let key_adds = {}
+
+
+const but1 = document.querySelector("#but1").addEventListener("click", () => {
+  setMovement(1);
+});
+const but2 = document.querySelector("#but2").addEventListener("click", () => {
+  setMovement(2);
+});
+
+
+function setMovement(type){
+  console.log("click f")
+  if(type == 1){
+    movementFunc = moveKeyKyles;
+  }
+  if(type == 2){
+    movementFunc = moveKeyStretchGoal;
+  }
+}
 
 
 
@@ -91,18 +123,19 @@ window.addEventListener("keydown", (e) => {
   audio.currentTime = 0;
   audio.play();
   key.classList.add('playing');
-  moveKey(key);
+  movementFunc(key);
 });
 
 
-let key_adds = {}
-// for each key keep track of a value starting at zero
-document.querySelectorAll(".key").forEach(element => {
-  key_adds[element.dataset.key] = 1;
-});
 
+function moveKeyKyles(key){
 
-function moveKey(key){
+  console.log("kyle");
+
+  if( !(key.dataset.key in key_adds)){
+    console.log("notkey")
+    key_adds[key.dataset.key] = 1;
+  }
 
   const colorz = ["red", "blue", "green", "purple", "aqua", "white", "yellow"];
   var index = Math.floor(Math.random() * colorz.length);
@@ -123,12 +156,22 @@ function moveKey(key){
   if(Math.abs(key_add) > 250){
     effect_add = (Math.sign(key_add)*250) - (key_add - (Math.sign(key_add)*250) );
   }
-
-
   key_adds[key.dataset.key] = key_add;
 
   key.style.marginTop  = `${effect_add}px`;
 }
+
+// stretch goal
+keyOffsetY = {};
+
+function moveKeyStretchGoal(key){
+  if(!(key.dataset.key in keyOffsetY )){
+    keyOffsetY [key.dataset.key] = 0;
+  }
+  keyOffsetY [key.dataset.key] = (keyOffsetY [key.dataset.key] + 10) % 100;
+  key.style.marginTop  = `${keyOffsetY [key.dataset.key]}px`;
+}
+
 
 
 
