@@ -1,5 +1,5 @@
 
-export const getJSON = (url) =>{
+export async function getJSON(url){
   return fetch(url)
         .then((response) => {
             if (response.ok) {
@@ -13,7 +13,7 @@ export const getJSON = (url) =>{
         });
 }
 
-export const getLocation = (options)  => {
+export const getLocation = async (options)  => {
   return new Promise(function(resolve, reject) {
       navigator.geolocation.getCurrentPosition(resolve, reject, options);
   });
