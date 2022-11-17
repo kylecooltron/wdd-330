@@ -137,6 +137,10 @@ const links = [
         url: "week9/team/kyle_expirement/index-START.html",
       },
       {
+        label: "kyle's annoying expirement",
+        url: "week9/annoying/index.html",
+      },
+      {
         label: "Challenge Two - Star Swiper Skeleton",
         url: "challenge_two/index.html",
       },
