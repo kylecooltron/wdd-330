@@ -1,20 +1,21 @@
 
 
-
-#app-container
+.app-container
 {
-text-align: center;
-position: relative;
+  text-align: center;
+  width: 100%;
 }
 
-#gameplay-area
+
+#game
 {
-  background-color: black;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.322);
   width: 100%;
   max-width: 600px;
   height:80vh;
   border-radius: 1em;
-  margin: 0 auto;
+  margin: 2em auto;
 }
 
 .fixed-message
@@ -25,4 +26,5 @@ position: relative;
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
+  cursor: pointer;
 }

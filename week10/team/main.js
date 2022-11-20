@@ -1,13 +1,8 @@
 import QuakesController from './modules/QuakesController.js';
+import buildNavigation from './modules/routing.js';
 
-window.onload = (event) => {
-  let quakesController = new QuakesController(
-    // parent element
-    "#quakeList"
-  );
-  // initializes the controller
-  quakesController.init();
-}
+const navElement = document.getElementById('mainNav');
+buildNavigation(navElement);
 
 
 
