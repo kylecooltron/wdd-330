@@ -148,15 +148,19 @@ const links = [
   },
   {
     week: "Week 10",
-    active: "false",
+    active: "true",
     assignments: [
       {
         label: "Week 10 notes",
         url: "notes/notes.html?week=10",
       },
       {
-        label: "upcoming assignment",
-        url: "#",
+        label: "Team assignment",
+        url: "week10/team/index.html",
+      },
+      {
+        label: "Challenge Two - Star Swiper Boiler Plate",
+        url: "challenge_two/index.html",
       },
     ]
   },

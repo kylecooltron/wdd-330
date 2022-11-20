@@ -4,20 +4,78 @@
    Summary of Week:  
 </em> 
 
+<b>Validating Forms</b>
+I did not know that client-side validation
+can automatically return validation properties
+so you know specifics about why the input is not valid.
+That makes it really easy to show a custom message
+to the user telling them what they did wrong.
 
+Note:
+addEventListenter("input, )
+element.validity.typeMismatch
+element.setCustomValidity("string")
+element.reportValidity
 
+or set it to a blank string if you want to simply remove
+the default message.
+
+remember the pseudo element :invalid
+
+to check with regex you can do:
+ variable.test(regex)
+
+I remember I had to use the request options
+when dealing with the Google Sheets API For
+a personal project.
+
+I will probably watch a video to help me
+understand more about request options and when
+they are helpful/neccesary.
+
+I'm sure most useful API's require credentials
+of some sort.
+
+I want to explore using fetch to post data.
+
+The notes and examples of request options
+and data chunking seem super useful, I want
+to save this page here for personal future use:
+<a href='https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch'>
+</a>
+
+I think I handled checking that fetch was
+succesful pretty well in this weeks team assignment.
+
+for using request options:
+const request = new Request('string', {
+   method: 'GET',
+   option: stuff,
+})
+
+Seems useful to check return types with 
+headers before attempting to process data
+
+I did some boiler plate work on challenge two this week.
 
 <em>_________________________________________
    Questions:  
 </em>  
 
+Are headers encrypted/secure accross networks?
+I'm guessing they are more easy to see and 
+should only be used for basic insensitive details.
+
+sounds like the types are "guard"ed?
 
 
 <em>_________________________________________
    Goals:  
 </em> 
 
-
+Consider using line iterators (sounds similar to
+Pythons generators csv reader etc.) when
+processing large amounts of data.
 
 
 <em>_________________________________________
