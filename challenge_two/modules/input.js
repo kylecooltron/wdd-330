@@ -43,6 +43,12 @@ export default class PlayerInput {
             listener.interval = null;
           }
         })
+        listener.element.addEventListener('mouseleave', () => {
+          if(listener.interval){
+            clearInterval(listener.interval);
+            listener.interval = null;
+          }
+        })
       }else{
         // any other listener type we need
           listener.element.addEventListener(listener.type, () => {
