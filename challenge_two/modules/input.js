@@ -11,6 +11,8 @@ export default class PlayerInput {
     // handle mouse position
     this.mousePos = {x: 0, y: 0};
     this.track_mouse_position();
+
+    this.addLeaveWindowListener();
   }
 
   // getters
@@ -22,6 +24,19 @@ export default class PlayerInput {
   }
   mouse_pos(){
     return this.mousePos;
+  }
+
+  addLeaveWindowListener(){
+    // create a generic listener on the document that will clear intervals if
+    // the mouse leaves the window
+    document.documentElement.addEventListener('mouseleave', () => {
+      this.listeners.forEach(listener => {
+        if(listener.interval){
+          clearInterval(listener.interval);
+          listener.interval = null;
+        }
+      });
+    });
   }
 
   apply_listeners(){
@@ -44,9 +59,17 @@ export default class PlayerInput {
           }
         })
         listener.element.addEventListener('mouseleave', () => {
-          if(listener.interval){
-            clearInterval(listener.interval);
-            listener.interval = null;
+          const rect = listener.element.getBoundingClientRect();
+          const threshold = 4;
+          if( this.mousePos.x <= rect.left + threshold 
+            || this.mousePos.y <= rect.top + threshold 
+            || this.mousePos.x >= rect.right - threshold 
+            || this.mousePos.y >= rect.bottom - threshold
+          ){
+            if(listener.interval){
+              clearInterval(listener.interval);
+              listener.interval = null;
+            }
           }
         })
       }else{

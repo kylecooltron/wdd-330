@@ -4,6 +4,7 @@
 {
   text-align: center;
   width: 100%;
+  user-select: none;
 }
 
 
@@ -16,6 +17,7 @@
   height:80vh;
   border-radius: 1em;
   margin: 2em auto;
+  user-select: none;
 }
 
 .fixed-message
@@ -45,4 +47,5 @@
   animation-iteration-count: infinite;
   animation-timing-function: linear; 
   user-select: none;
+  pointer-events: none;
 }
