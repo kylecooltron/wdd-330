@@ -1,7 +1,7 @@
 
 import Canvas from './Canvas.js';
 import PlayerInput from './input.js';
-import Star from './Star.js';
+import {Star, StarController} from './Star.js';
 import Pattern from './Pattern.js';
 
 
@@ -13,8 +13,8 @@ export default class GameController {
     // controllers
     this.canvasController = null;
     this.patternCreator = null;
+    this.starController = null;
     this.playerInput = null;
-
     // game state
     this.game_state = "loading";
   }
@@ -34,6 +34,13 @@ export default class GameController {
       this.parentElement.offsetWidth,
       this.parentElement.offsetHeight
     )
+    // init Star Controller
+    this.starController = new StarController(this.parentElement);
+    console.log(this.patternCreator.create_pattern());
+    this.starController.createStars(
+      this.patternCreator.create_pattern()
+    )
+
     // init PlayerInput controller
     this.playerInput = new PlayerInput(
       [{

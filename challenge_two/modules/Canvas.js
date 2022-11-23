@@ -1,6 +1,9 @@
-  // Game View handler
+// Game View handler
 
-  export default class Canvas {
+
+const lineColor = "red";
+
+export default class Canvas {
 
     constructor(parentElement){
       this.parentElement = parentElement;
@@ -29,6 +32,8 @@
       // takes absolute x,y positions
       if(!this.ctx){
         this.ctx = this.canvas.getContext("2d");
+        this.ctx.strokeStyle = lineColor;
+        this.ctx.lineWidth = 15;
       } 
       this.ctx.beginPath();
       this.ctx.moveTo(

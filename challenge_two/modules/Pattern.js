@@ -1,12 +1,13 @@
 
 
+const borderThickness = 60;
 
 export default class Pattern {
 
   constructor(width, height) {
     this.pattern_array = []
     this.complexity = {
-      "count": 3,
+      "count": 10,
       "angle": 20,
     }
     this.width = width;
@@ -18,10 +19,13 @@ export default class Pattern {
     this.height = height;
   }
 
-  new_pattern(width, height){
+  create_pattern(width = this.width, height = this.height){
     this.pattern_array = []
-    for(var i=0; i<this.complexity.count; i++){ 
-      this.pattern_array.push({x:Math.random() * width, y:Math.random() * height})
+    for(var i=0; i<this.complexity.count; i++){
+      let new_x = borderThickness + (Math.random() * (width - borderThickness * 2));
+      let new_y = borderThickness + (Math.random() * (height - borderThickness * 2));
+
+      this.pattern_array.push({x:new_x, y:new_y})
     }
     return this.pattern_array;
   }

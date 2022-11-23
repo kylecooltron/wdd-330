@@ -10,7 +10,7 @@
 #game
 {
   position: relative;
-  background-color: rgba(0, 0, 0, 0.322);
+  background-color: rgba(0, 0, 0, 0.89);
   width: 100%;
   max-width: 600px;
   height:80vh;
@@ -27,4 +27,22 @@
   transform: translate(-50%, -50%);
   color: white;
   cursor: pointer;
+}
+
+@keyframes spin {
+  from {
+      transform:rotate(0deg);
+  }
+  to {
+      transform:rotate(360deg);
+  }
+}
+
+.star{
+  position: fixed;
+  animation-name: spin;
+  animation-duration: 5000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear; 
+  user-select: none;
 }

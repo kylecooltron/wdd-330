@@ -8,10 +8,5 @@ export default function StartGame(){
   const gameController = new GameController("#game");
   gameController.initController();
 
-  /*
-
-
-
-  */
 }
 
