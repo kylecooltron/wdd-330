@@ -30,7 +30,7 @@
   cursor: pointer;
 }
 
-@keyframes spin {
+@keyframes star-spinning {
   from {
       transform:rotate(0deg);
   }
@@ -39,12 +39,66 @@
   }
 }
 
+@keyframes star-creating {
+  from {
+      transform:scale(0.1) rotate(300deg);
+  }
+  to {
+      transform:scale(1) rotate(360deg);
+  }
+}
+
+@keyframes star-exploding {
+  from {
+      transform:scale(1) rotate(0deg);
+      filter: saturate(100%) hue-rotate(0);
+  }
+  to {
+      transform:scale(4) rotate(300deg);
+      opacity: 0;
+      filter: saturate(1000%) hue-rotate(-100deg);
+  }
+}
+
+@keyframes star-fading {
+  from {
+      opacity: 1;
+  }
+  to {
+      opacity: 0;
+  }
+}
+
 .star{
   position: fixed;
-  animation-name: spin;
+  user-select: none;
+  pointer-events: none;
+}
+
+.star-creating{
+  animation-name: star-creating;
+  animation-duration: 500ms;
+  animation-iteration-count: 1;
+  animation-timing-function: linear; 
+}
+
+.star-spinning{
+  animation-name: star-spinning;
   animation-duration: 5000ms;
   animation-iteration-count: infinite;
   animation-timing-function: linear; 
-  user-select: none;
-  pointer-events: none;
+}
+
+.star-exploding{
+  animation-name: star-exploding;
+  animation-duration: 300ms;
+  animation-iteration-count: 1;
+  animation-timing-function: linear; 
+}
+
+.star-fading{
+  animation-name: star-fading;
+  animation-duration: 5000ms;
+  animation-iteration-count: 1;
+  animation-timing-function: linear; 
 }

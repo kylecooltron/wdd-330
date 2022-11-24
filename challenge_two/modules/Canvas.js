@@ -66,8 +66,10 @@ export default class Canvas {
       this.ctx.strokeStyle = lineColor;
 
       let dist = Math.ceil(line_dist(startPoint.x, startPoint.y, endPoint.x, endPoint.y));
-      let dynamicLineWidth = lineWidth + dist * 0.5;
+      let dynamicLineWidth = lineWidth + dist * 0.3;
       let ang = angle_between_points(startPoint.x,startPoint.y, endPoint.x, endPoint.y);
+
+      let line_points = [];
 
       for(let i=0; i<dist; i++){
 
@@ -75,6 +77,8 @@ export default class Canvas {
           x: startPoint.x + Math.cos(ang) * i,
           y: startPoint.y + Math.sin(ang) * i,
         }
+
+        line_points.push(point);
 
         let interpolatedSize = dynamicLineWidth;
 
@@ -96,6 +100,8 @@ export default class Canvas {
       }
 
       this.lastSize = dynamicLineWidth;
+
+      return line_points;
 
     }
 

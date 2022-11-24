@@ -35,7 +35,7 @@ export default class GameController {
       this.parentElement.offsetHeight
     )
     // init Star Controller
-    this.starController = new StarController(this.parentElement);
+    this.starController = new StarController(this, this.parentElement);
 
     // init PlayerInput controller
     this.playerInput = new PlayerInput();
@@ -52,12 +52,6 @@ export default class GameController {
   }
 
   setGamePlaying(){
-
-    // create test pattern
-    this.starController.createStars(
-      this.patternCreator.create_pattern()
-    )
-    
     // create canvas for gameplay and attach listeners
     this.playerInput.apply_listeners(
       [{
@@ -67,16 +61,31 @@ export default class GameController {
         callparent: this,
       }]
     );
+    // create first pattern
+    this.starController.createStars(
+      this.patternCreator.create_pattern()
+    )
+  }
 
+  lastStarFaded(){
+    // create test pattern
+    this.starController.createStars(
+      this.patternCreator.create_pattern()
+    )
   }
 
 
 
   mouseHold(element, callparent){
-    callparent.canvasController.drawLine(
+    let line_points = callparent.canvasController.drawLine(
       callparent.playerInput.previous_mouse_pos(),
       callparent.playerInput.mouse_pos()
     )
+
+    callparent.starController.mouseCheck(
+      line_points,
+    )
+
   }
 
 
