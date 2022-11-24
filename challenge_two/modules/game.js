@@ -5,7 +5,7 @@ import GameController from './GameController.js';
 // start the Game app
 export default function StartGame(){
 
-  const gameController = new GameController("#game");
+  const gameController = new GameController("#game", "#score");
   gameController.initController();
 
 }

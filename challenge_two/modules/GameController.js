@@ -4,12 +4,14 @@ import PlayerInput from './input.js';
 import {Star, StarController} from './Star.js';
 import Pattern from './Pattern.js';
 import Menu from './Menu.js';
+import Score from './Score.js';
 
 export default class GameController {
 
-  constructor(parent) {
+  constructor(parent, scoreElement) {
     this.parent = parent;
     this.parentElement = null;
+    this.score = new Score(document.querySelector(scoreElement));
     // controllers
     this.canvasController = null;
     this.patternCreator = null;
@@ -65,6 +67,8 @@ export default class GameController {
     this.starController.createStars(
       this.patternCreator.create_pattern()
     )
+    // reset score
+    this.score.set_score(0);
   }
 
   lastStarFaded(){
@@ -88,6 +92,9 @@ export default class GameController {
 
   }
 
+  addPoints(points){
+    this.score.add_score(points);
+  }
 
 
 

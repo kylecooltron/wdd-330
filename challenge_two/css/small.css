@@ -1,5 +1,9 @@
 
 
+body{
+  background-color: rgb(14, 26, 85);
+}
+
 .app-container
 {
   text-align: center;
@@ -18,6 +22,7 @@
   margin: 2em auto;
   user-select: none;
 }
+
 
 .fixed-message
 {
@@ -101,4 +106,20 @@
   animation-duration: 5000ms;
   animation-iteration-count: 1;
   animation-timing-function: linear; 
+}
+
+#score{
+  height: 30px;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: white;
+  margin: 1.2em 0 0;
+}
+
+h1{
+  height: 20px;
+  font-size: 2.5em;
+  font-weight: bold;
+  color: rgb(211, 121, 253);
+  margin: 0;
 }

@@ -46,25 +46,25 @@ export class StarController {
   mouseCheck(line_points){
     for(let key in this.starDict){
       let star = this.starDict[key];
-
-      // for every point in the line
-      line_points.every(point => {
-    
-        let dist = line_dist(
-          point.x,
-          point.y,
-          star.get_x(),
-          star.get_y(),
-        )
-        // see if it's close to star
-        if(dist <= 40){
-          star.explodeStar();
-          //stop searching
-          return true;
+      if(star.get_state() == "spinning"){
+        // for every point in the line
+        for(let i=0;i<line_points.length; i++){
+          let point = line_points[i];
+          let dist = line_dist(
+            point.x,
+            point.y,
+            star.get_x(),
+            star.get_y(),
+          )
+          // see if it's close to star
+          if(dist <= 40){
+            star.explodeStar();
+            this.gameController.addPoints(100);
+            //stop searching
+            break;
+          }
         }
-
-      })
-
+      }
     }
   }
 
@@ -149,6 +149,9 @@ export class Star {
   get_position(){
     return this.position;
   }
+  get_state(){
+    return this.state;
+  }
 
   removeStar(){
     this.starController.removeStar(this.star_ID);
@@ -156,6 +159,7 @@ export class Star {
   }
 
   explodeStar(){
+    this.state = "exploding";
     this.container_div.classList.remove("star-fading");
     this.container_div.style.opacity = 1;
     this.element.classList.remove("star-spinning");
