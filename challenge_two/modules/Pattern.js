@@ -9,7 +9,8 @@ export default class Pattern {
     this.pattern_array = []
     this.complexity = {
       "count": 10,
-      "angle": 4,
+      "angle": 150,
+      "dist": 90,
     }
     this.width = width;
     this.height = height;
@@ -26,92 +27,68 @@ export default class Pattern {
 
     // set starting point
     let start_point = this.get_random_point();
-    // push point away from center
+    // push start point away from center
     if(start_point.x > width*0.25 || start_point.x < width*0.75){
-      if(start_point.x < width*0.5){
-        start_point.x = width*0.25;
-      }else{
-        start_point.x = width*0.75;
-      }
+      if(start_point.x < width*0.5){ start_point.x = width*0.25;
+      }else{ start_point.x = width*0.75; }
     }
     if(start_point.y > height*0.25 || start_point.y < height*0.75){
-      if(start_point.x < height*0.5){
-        start_point.y = height*0.25;
-      }else{
-        start_point.y = height*0.75;
-      }
+      if(start_point.y < height*0.5){ start_point.y = height*0.25;
+      }else{ start_point.y = height*0.75; }
     }
-
     
-    
-    // try ten times to make a good pattern
-    for(let tries=0; tries<10; tries++){
-      attempt_pattern = [start_point];
-
-      let next_angle = angle_between_points(
-        attempt_pattern.at(-1).x,
-        attempt_pattern.at(-1).y,
-        width*0.5,
-        height*0.5
-      ) + degrees_to_radians(
-        (Math.random() * this.complexity.angle) - (this.complexity.angle*0.5)
+    // try n times to make a pattern that fits in the screen
+    for(let tries=0; tries<200; tries++){
+      // add the starting point
+      this.pattern_array = [start_point];
+      // set starting angle
+      let next_angle = this.get_new_angle(
+        this.pattern_array.at(-1), { x: width*0.5, y: height*0.5}
       )
-
+      // generate random points
       for(let i=0; i<this.complexity.count-1; i++){
-        
-        // console.log(attempt_pattern.at(-1));
-
-        let dist = 90;
-        let new_x = attempt_pattern.at(-1).x + Math.cos(next_angle) * dist;
-        let new_y = attempt_pattern.at(-1).y + Math.sin(next_angle) * dist;
-
-        next_angle = angle_between_points(
-          attempt_pattern.at(-1).x,
-          attempt_pattern.at(-1).y,
-          new_x,
-          new_y,
-        ) + degrees_to_radians(
-          (Math.random() * this.complexity.angle) - (this.complexity.angle*0.5)
-        )
-        
-        attempt_pattern.push(
-          {x: new_x, y: new_y}
-        )
-
-        
-        
+        // push new point to array
+        this.pattern_array.push({
+          x: this.pattern_array.at(-1).x + Math.cos(next_angle) * this.complexity.dist,
+          y: this.pattern_array.at(-1).y + Math.sin(next_angle) * this.complexity.dist,
+        });
+        // get angle for next point
+        next_angle = this.get_new_angle(
+          this.pattern_array.at(-2), 
+          this.pattern_array.at(-1)
+        );
       }
 
+      // check to see if this random pattern fits on the screen
       let points_on_screen = true;
-      attempt_pattern.forEach(point => {
-        if(point.x < borderThickness || point.y < borderThickness){
-          points_on_screen = false;
-        }
-        if(point.x > width - borderThickness || point.y > height - borderThickness){
+      this.pattern_array.forEach(point => {
+        if(point.x < borderThickness || point.y < borderThickness || 
+           point.x > width - borderThickness || point.y > height - borderThickness){
           points_on_screen = false;
         }
       });
-
+      // success
       if(points_on_screen){
-        console.log(attempt_pattern);
         break;
       }
-
     }
 
-    this.pattern_array = attempt_pattern;
-    // for(var i=0; i<this.complexity.count; i++){
-    //   let new_x = borderThickness + (Math.random() * (width - borderThickness * 2));
-    //   let new_y = borderThickness + (Math.random() * (height - borderThickness * 2));
-
-    //   this.pattern_array.push({x:new_x, y:new_y})
-    // }
-
-
-
+    // return the array of points
     return this.pattern_array;
   }
 
+  get_new_angle(from_point, to_point){
+    return (
+      angle_between_points(
+        from_point.x,
+        from_point.y,
+        to_point.x,
+        to_point.y
+      ) + degrees_to_radians(
+        (Math.random() * this.complexity.angle) - (this.complexity.angle*0.5)
+    ))
+  }
+  
   get_random_point(width = this.width, height = this.height){
     let new_x = borderThickness + (Math.random() * (width - borderThickness * 2));
     let new_y = borderThickness + (Math.random() * (height - borderThickness * 2));
