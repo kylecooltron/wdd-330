@@ -37,12 +37,12 @@ export default class PlayerInput {
       this.listeners.forEach(listener => {
         if(listener.mouseMoveListener){
           listener.mouseMoveListener = null;
+          // call function when mouse hold ends
+          listener.callend(listener.callparent);
         }
       });
     });
   }
-
-
 
   apply_listeners(listeners){
     this.listeners.push(...listeners);
@@ -71,40 +71,41 @@ export default class PlayerInput {
     listener.element.addEventListener('mouseup', () => {
       if(listener.mouseMoveListener){
         listener.mouseMoveListener = null;
+        // call function when mouse hold ends
+        listener.callend(listener.callparent);
       }
     });
 
     listener.element.addEventListener('mouseleave', () => {
       if(listener.mouseMoveListener){
         listener.mouseMoveListener = null;
+        // call function when mouse hold ends
+        listener.callend(listener.callparent);
       }
     });
-    
-    listener.element.addEventListener('mouseleave', () => {
-      const rect = listener.element.getBoundingClientRect();
-      const threshold = 4;
-      if( this.mousePos.x <= rect.left + threshold 
-        || this.mousePos.y <= rect.top + threshold 
-        || this.mousePos.x >= rect.right - threshold 
-        || this.mousePos.y >= rect.bottom - threshold
-      ){
-        if(listener.mouseMoveListener){
-          listener.mouseMoveListener = null;
-        }
+
+  }
+
+  nextStarPattern(){
+    // if pattern ends for any reason reset "hold" listeners
+    this.listeners.forEach(listener => {
+      if(listener.mouseMoveListener){
+        listener.mouseMoveListener = null;
+        // call function when mouse hold ends
+        listener.callend(listener.callparent);
       }
     });
   }
 
 
   runCallbacks(){
+    // run all hold listeners in our list
     this.listeners.forEach(listener => {
       if(listener.mouseMoveListener){
         listener.callback(listener.element, listener.callparent);
       }
     });
   }
-
-
 
 
   track_mouse_position(){

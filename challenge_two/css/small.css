@@ -108,6 +108,16 @@ body{
   animation-timing-function: linear; 
 }
 
+/* .star-fast-fading
+{
+  transition: opacity 1s;
+  opacity: 1;
+}
+.star-translucent
+{
+  opacity: 0;
+} */
+
 #score{
   height: 30px;
   font-size: 1.5em;

@@ -1,5 +1,5 @@
 
-import {line_dist, angle_between_points, degrees_to_radians} from "./functions.js";
+import {point_dist, angle_between_points, degrees_to_radians} from "./functions.js";
 
 const borderThickness = 60;
 
@@ -21,9 +21,19 @@ export default class Pattern {
     this.height = height;
   }
 
+  get_pattern_total_length(){
+    let dist = 0;
+    for(let i=0; i<this.pattern_array.length-1; i++){
+      dist += point_dist(
+        this.pattern_array[i],
+        this.pattern_array[i+1],
+      )
+    }
+    return dist;
+  }
+
   create_pattern(width = this.width, height = this.height){
     this.pattern_array = []
-    let attempt_pattern = [];
 
     // set starting point
     let start_point = this.get_random_point();

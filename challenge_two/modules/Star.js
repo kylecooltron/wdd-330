@@ -8,6 +8,7 @@ export class StarController {
   constructor(gameController, parentElement){
     this.gameController = gameController;
     this.parentElement = parentElement;
+    this.starStartCount = 0;
     this.starDict = {};
     this.uniqueID = 0;
   }
@@ -18,7 +19,27 @@ export class StarController {
     return id;
   }
 
+  getStarTotal(){
+    // returns how many stars are left and to start
+    return {
+      "left": Object.keys(this.starDict).length,
+      "start": this.starStartCount,
+    }
+  }
+
+  swipeEnded(){
+    for(let key in this.starDict){
+      let star = this.starDict[key];
+      if(star.state == "spinning"){
+        star.fadeFast();
+      }
+    }
+  }
+
   createStars(patternList){
+    // set the initial star count
+    this.starStartCount = patternList.length;
+    // create new stars and add them to dict
     patternList.forEach(element => {
       let new_id = this.getUniqueID();
       this.starDict[new_id] = new Star(
@@ -121,6 +142,7 @@ export class Star {
         // set container div to fade at certain rate
         this.container_div.classList.add("star-fading");
         this.container_div.style["animation-duration"] = this.fadespeed + "ms";
+        // set to fade out
         this.container_div.addEventListener("animationend", (e) => {
           if(e.animationName == "star-fading"){
             this.removeStar();
@@ -165,5 +187,30 @@ export class Star {
     this.element.classList.remove("star-spinning");
     this.element.classList.add("star-exploding");
   }
+
+  fadeFast(){
+    this.state = "fade-fast";
+    let calcOpacity = (window.getComputedStyle(this.container_div).getPropertyValue("opacity"));
+    this.container_div.classList.remove("star-fading");
+    this.container_div.style.opacity = calcOpacity;
+    this.fadeOpacity();
+  }
+
+  fadeOpacity(){
+    // console.log(this.container_div.style.opacity);
+
+    if(this.container_div.style.opacity > 0){
+      this.container_div.style.opacity -= 10 / (this.fadespeed*0.3);
+      setTimeout(() => {
+        this.fadeOpacity();
+      }, 1);
+    }else{
+      this.removeStar();
+    }
+
+    
+  }
+
+
 
 }

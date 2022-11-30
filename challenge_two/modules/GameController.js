@@ -5,6 +5,7 @@ import {Star, StarController} from './Star.js';
 import Pattern from './Pattern.js';
 import Menu from './Menu.js';
 import Score from './Score.js';
+import { line_dist, point_dist } from './functions.js';
 
 export default class GameController {
 
@@ -20,6 +21,9 @@ export default class GameController {
     this.menu = null;
     // game state
     this.game_state = "start-menu";
+    // game variables
+    this.extra_length_allowed = 0;
+    this.current_swipe_dist = 0;
   }
 
   // accessors - - - - - - -
@@ -60,6 +64,7 @@ export default class GameController {
         element: this.canvasController.createCanvas(),
         type: "hold",
         callback: this.mouseHold,
+        callend: this.mouseUp,
         callparent: this,
       }]
     );
@@ -72,6 +77,8 @@ export default class GameController {
   }
 
   lastStarFaded(){
+    // reset swipe input
+    this.playerInput.nextStarPattern();
     // create test pattern
     this.starController.createStars(
       this.patternCreator.create_pattern()
@@ -81,15 +88,34 @@ export default class GameController {
 
 
   mouseHold(element, callparent){
+    // draw line on canvas
     let line_points = callparent.canvasController.drawLine(
       callparent.playerInput.previous_mouse_pos(),
       callparent.playerInput.mouse_pos()
     )
-
+    // check for collisions
     callparent.starController.mouseCheck(
       line_points,
     )
+    // update the swipe dist
+    callparent.current_swipe_dist += point_dist(
+      callparent.playerInput.previous_mouse_pos(),
+      callparent.playerInput.mouse_pos()
+    );
+    // check if swipe exceeds max length
+    if(callparent.current_swipe_dist > callparent.patternCreator.get_pattern_total_length() + callparent.extra_length_allowed){
+      // reset swipe input
+      callparent.playerInput.nextStarPattern();
+      // let the star controller know the swipe ended early
+      callparent.starController.swipeEnded();
+    }
+  }
 
+  mouseUp(callparent){
+    // let the star controller know the swipe ended early
+    callparent.starController.swipeEnded();
+    // reset the swipe dist
+    callparent.current_swipe_dist = 0;
   }
 
   addPoints(points){
