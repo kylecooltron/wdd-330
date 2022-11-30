@@ -5,11 +5,11 @@ import {Star, StarController} from './Star.js';
 import Pattern from './Pattern.js';
 import Menu from './Menu.js';
 import Score from './Score.js';
-import { line_dist, point_dist } from './functions.js';
+import { point_dist } from './functions.js';
 
 export default class GameController {
 
-  constructor(parent, scoreElement) {
+  constructor(parent, scoreElement){
     this.parent = parent;
     this.parentElement = null;
     this.score = new Score(document.querySelector(scoreElement));
@@ -76,7 +76,16 @@ export default class GameController {
     this.score.set_score(0);
   }
 
-  lastStarFaded(){
+  lastStarFaded(missedStars, faded){
+    // handle missed stars
+    if(faded){
+      this.handleMissedStars(
+        {
+          "missed": missedStars,
+          "out_of": this.starController.getStarStartCount(),
+        }
+      )
+    }
     // reset swipe input
     this.playerInput.nextStarPattern();
     // create test pattern
@@ -85,7 +94,10 @@ export default class GameController {
     )
   }
 
-
+  handleMissedStars(info){
+    // determine quality of swipe
+    console.log("start count " + info.out_of + " stars left" + info.missed);
+  }
 
   mouseHold(element, callparent){
     // draw line on canvas
@@ -104,16 +116,16 @@ export default class GameController {
     );
     // check if swipe exceeds max length
     if(callparent.current_swipe_dist > callparent.patternCreator.get_pattern_total_length() + callparent.extra_length_allowed){
-      // reset swipe input
-      callparent.playerInput.nextStarPattern();
       // let the star controller know the swipe ended early
       callparent.starController.swipeEnded();
+      // reset swipe input
+      callparent.playerInput.nextStarPattern();
     }
   }
 
-  mouseUp(callparent){
+  mouseUp(callparent, checkMissed=true){
     // let the star controller know the swipe ended early
-    callparent.starController.swipeEnded();
+    callparent.starController.swipeEnded(checkMissed);
     // reset the swipe dist
     callparent.current_swipe_dist = 0;
   }

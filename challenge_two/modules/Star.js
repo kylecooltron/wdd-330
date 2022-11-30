@@ -11,6 +11,7 @@ export class StarController {
     this.starStartCount = 0;
     this.starDict = {};
     this.uniqueID = 0;
+    this.missedStars = 0;
   }
 
   getUniqueID(){
@@ -21,13 +22,31 @@ export class StarController {
 
   getStarTotal(){
     // returns how many stars are left and to start
+    let stars_left = 0;
+    for(let key in this.starDict){
+      let star = this.starDict[key];
+      if(star.state == "spinning"){
+        stars_left += 1;
+      }
+    }
     return {
-      "left": Object.keys(this.starDict).length,
-      "start": this.starStartCount,
+      "missed": stars_left,
+      "out_of": this.starStartCount,
     }
   }
 
-  swipeEnded(){
+  getStarStartCount(){
+    return this.starStartCount;
+  }
+
+  swipeEnded(checkMissed=true){
+    // handle missed stars
+    if(checkMissed){
+      this.gameController.handleMissedStars(
+        this.getStarTotal()
+      )
+    }
+    // set remaining stars to fade quickly
     for(let key in this.starDict){
       let star = this.starDict[key];
       if(star.state == "spinning"){
@@ -51,17 +70,26 @@ export class StarController {
     });
   }
 
-  removeStar(star_ID){
+  removeStar(star_ID, faded=false){
     if(this.starDict.hasOwnProperty(star_ID)){
+      // if the star was missed
+      if(faded){
+        this.missedStars += 1;
+      }
       delete this.starDict[star_ID];
     }
     if(Object.entries(this.starDict).length == 0){
-      this.lastStarRemoved();
+      this.lastStarRemoved(faded);
     }
   }
 
-  lastStarRemoved(){
-    this.gameController.lastStarFaded();
+  lastStarRemoved(faded=false){
+    this.gameController.lastStarFaded(
+      this.missedStars,
+      faded
+    );
+    // reset
+    this.missedStars = 0;
   }
 
   mouseCheck(line_points){
@@ -145,7 +173,7 @@ export class Star {
         // set to fade out
         this.container_div.addEventListener("animationend", (e) => {
           if(e.animationName == "star-fading"){
-            this.removeStar();
+            this.removeStar(true);
           }
         })
         // set the new state
@@ -175,8 +203,8 @@ export class Star {
     return this.state;
   }
 
-  removeStar(){
-    this.starController.removeStar(this.star_ID);
+  removeStar(faded=false){
+    this.starController.removeStar(this.star_ID,faded);
     this.container_div.remove();
   }
 
@@ -189,6 +217,7 @@ export class Star {
   }
 
   fadeFast(){
+    // start fading fast
     this.state = "fade-fast";
     let calcOpacity = (window.getComputedStyle(this.container_div).getPropertyValue("opacity"));
     this.container_div.classList.remove("star-fading");
@@ -197,8 +226,7 @@ export class Star {
   }
 
   fadeOpacity(){
-    // console.log(this.container_div.style.opacity);
-
+    // fade until it disappears
     if(this.container_div.style.opacity > 0){
       this.container_div.style.opacity -= 10 / (this.fadespeed*0.3);
       setTimeout(() => {
@@ -207,8 +235,6 @@ export class Star {
     }else{
       this.removeStar();
     }
-
-    
   }
 
 

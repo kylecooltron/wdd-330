@@ -92,7 +92,7 @@ export default class PlayerInput {
       if(listener.mouseMoveListener){
         listener.mouseMoveListener = null;
         // call function when mouse hold ends
-        listener.callend(listener.callparent);
+        listener.callend(listener.callparent, false);
       }
     });
   }
