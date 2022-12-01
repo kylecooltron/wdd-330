@@ -24,6 +24,7 @@ export default class GameController {
     // game variables
     this.extra_length_allowed = 0;
     this.current_swipe_dist = 0;
+    this.strikes = 0;
   }
 
   // accessors - - - - - - -
@@ -97,6 +98,15 @@ export default class GameController {
   handleMissedStars(info){
     // determine quality of swipe
     console.log("start count " + info.out_of + " stars left" + info.missed);
+    if(info.missed > info.out_of * 0.5){
+      this.menu.addStrike();
+      this.strikes += 1;
+    }
+    // handle game over
+    if(this.strikes >= 3){
+      this.menu.setState("game-over");
+      this.strikes = 0;
+    }
   }
 
   mouseHold(element, callparent){

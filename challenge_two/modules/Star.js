@@ -1,8 +1,8 @@
 import { line_dist } from "./functions.js";
 
 
-const starImg = "images/star.png";
-const starImgWidth = 100;
+const starImg = "images/star_small.png";
+const starImgWidth = 60;
 
 export class StarController {
   constructor(gameController, parentElement){

@@ -10,7 +10,7 @@ export default class Pattern {
     this.complexity = {
       "count": 10,
       "angle": 150,
-      "dist": 90,
+      "dist": 50,
     }
     this.width = width;
     this.height = height;

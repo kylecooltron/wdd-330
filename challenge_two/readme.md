@@ -3,6 +3,8 @@
 
 TODO:
 patterns get harder
-max swipe distance
-if swipe ends, stars fade instantly
 high score table
+if you fail three times in a row, game over
+What is a fail? miss over half
+Show three XXX in the top right
+
