@@ -55,7 +55,16 @@ export class StarController {
     }
   }
 
-  createStars(patternList){
+  instantlyRemoveStars(){
+    for(let key in this.starDict){
+      let star = this.starDict[key];
+        star.removeStar();
+    }
+  }
+
+
+
+  createStars(patternList, fadespeed=5000){
     // set the initial star count
     this.starStartCount = patternList.length;
     // create new stars and add them to dict
@@ -66,6 +75,7 @@ export class StarController {
         this.parentElement,
         {x: element.x, y: element.y},
         new_id,
+        fadespeed,
       );
     });
   }

@@ -6,14 +6,29 @@ const borderThickness = 60;
 export default class Pattern {
 
   constructor(width, height) {
-    this.pattern_array = []
-    this.complexity = {
+    this.default_complexity = {
       "count": 10,
       "angle": 150,
-      "dist": 50,
-    }
+      "dist": 60,
+    };
+    this.pattern_array = [];
+    this.complexity = this.default_complexity;
     this.width = width;
     this.height = height;
+  }
+
+
+  get_complexity_attr(attribute){
+    return this.complexity[attribute];
+  }
+  get_complexity(){
+    return this.complexity;
+  }
+  set_complexity(complexity){
+    this.complexity = complexity;
+  }
+  reset_complexity(){
+    this.complexity = this.default_complexity;
   }
 
   set_size(width, height){

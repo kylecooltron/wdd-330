@@ -4,8 +4,9 @@
 
 export default class PlayerInput {
 
-  constructor(listeners = []) {
+  constructor(gameController, listeners = []) {
     this.listeners = [];
+    this.gameController = gameController;
     this.apply_listeners(listeners);
 
     // handle mouse position
@@ -14,6 +15,7 @@ export default class PlayerInput {
     this.track_mouse_position();
 
     this.addLeaveWindowListener();
+    this.addResizeWindowListener();
   }
 
   // getters
@@ -42,6 +44,19 @@ export default class PlayerInput {
         }
       });
     });
+  }
+
+  addResizeWindowListener(){
+    window.addEventListener("resize", () => {
+      this.gameController.windowResize();
+    });
+  }
+
+  reset_listeners(){
+    this.listeners = [];
+    // Note: may need to add code here to actually
+    // remove the listeners from the canvas
+    // or perhaps it will remove them when the canvas element is destroyed
   }
 
   apply_listeners(listeners){

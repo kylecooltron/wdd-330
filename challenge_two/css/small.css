@@ -36,6 +36,10 @@ body{
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
+}
+
+#start-btn
+{
   cursor: pointer;
 }
 
@@ -151,3 +155,69 @@ h1{
   color: rgb(211, 121, 253);
   margin: 0;
 }
+
+#high-score
+{
+  text-align: center;
+}
+#high-score button
+{
+  padding: 0.2em 0.8em;
+  font-size: large;
+  border: 1px solid rgb(105, 105, 105);
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  border-radius: 3px;
+  margin-top: 1.5em;
+}
+
+#high-score button:hover
+{
+  border: 1px solid rgb(240, 240, 240);
+}
+
+#high-score h2
+{
+  font-size: 0.7em;
+  width: 400px;
+  margin: 0.5em auto;
+}
+
+#high-score-list input
+{
+  width: 80%;
+  background-color: rgb(13, 25, 65);
+  color: white;
+  border: 1px solid rgb(44, 44, 44);
+  border-radius: 3px;
+  font-size: 0.8em;
+  padding: 0.15em 0.4em;
+}
+#high-score-list
+{
+  padding: 0.5em;
+  font-size: 0.9em;
+  /* border: 1px solid red; */
+  background-color: rgb(13, 25, 65);
+  width: 80%;
+  margin: 0 auto;
+  /* font-size: large; */
+}
+#high-score-list th
+{
+  font-size: 0.8em;
+  text-decoration: underline;
+  width: 200px;
+}
+#high-score-list td
+{
+  padding: 0.3em 0.1em;
+  /* align-items: center; */
+  /* border: 1px solid rgb(24, 216, 40); */
+  font-size: 0.7em;
+}
+
+#high-score-list th{
+  font-weight: bold;
+} 

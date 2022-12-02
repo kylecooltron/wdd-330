@@ -6,6 +6,10 @@ export default class Score {
     this.score = 0;
   }
 
+  get_score(){
+    return this.score;
+  }
+
   add_score(points){
     this.score += points;
     this.render();
