@@ -17,8 +17,7 @@ export default class GameController {
     this.parentElement = null;
     this.score = new Score(document.querySelector(scoreElement));
     this.lsManager = new LocalStorageManager();
-    // For testing purposes
-    this.lsManager.clearData();
+    // For testing purposes -> this.lsManager.clearData();
     // controllers
     this.canvasController = null;
     this.patternCreator = null;
@@ -48,14 +47,14 @@ export default class GameController {
     // set parent
     this.parentElement = document.querySelector(this.parent);
     // init Canvas controller
-    this.canvasController = new Canvas(this.parentElement);
+    this.canvasController = new Canvas(this.parentElement, this);
     // init Pattern creator
     this.patternCreator = new Pattern(
       this.parentElement.offsetWidth,
       this.parentElement.offsetHeight
     )
     // init Star Controller
-    this.starController = new StarController(this, this.parentElement);
+    this.starController = new StarController(this, this.parentElement, this.canvasController);
 
     // init PlayerInput controller
     this.playerInput = new PlayerInput(this);
@@ -257,6 +256,9 @@ export default class GameController {
   }
 
   mouseHold(element, callparent){
+
+    if(callparent.playerInput.previous_mouse_pos() != null){
+
     // draw line on canvas
     let line_points = callparent.canvasController.drawLine(
       callparent.playerInput.previous_mouse_pos(),
@@ -271,6 +273,9 @@ export default class GameController {
       callparent.playerInput.previous_mouse_pos(),
       callparent.playerInput.mouse_pos()
     );
+    
+    }
+
     // check if swipe exceeds max length
     if(callparent.current_swipe_dist > callparent.patternCreator.get_pattern_total_length() + callparent.extra_length_allowed){
       // let the star controller know the swipe ended early
@@ -291,6 +296,9 @@ export default class GameController {
     this.score.add_score(points);
   }
 
+  getStarDict(){
+    return this.starController.getStarDict();
+  }
 
 
 }

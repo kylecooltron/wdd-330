@@ -14,6 +14,11 @@ export class StarController {
     this.missedStars = 0;
   }
 
+
+  getStarDict(){
+    return this.starDict;
+  }
+
   getUniqueID(){
     let id = this.uniqueID;
     this.uniqueID ++;

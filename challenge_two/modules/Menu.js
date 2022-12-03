@@ -88,7 +88,6 @@ export default class Menu {
     submit_button.addEventListener('click', () => {
       if(new_highscore){
         let sanitizedInput = (this.menuElement.querySelector("#player-name").value).replace(/[^a-z0-9]+/gi, "");
-        console.log("sanitized" + sanitizedInput);
         if(!this.gameController.submittedScore(
           sanitizedInput,
           scores

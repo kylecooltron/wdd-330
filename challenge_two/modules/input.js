@@ -31,7 +31,12 @@ export default class PlayerInput {
   previous_mouse_pos(){
     return this.previousMousePos;
   }
+  reset_previous_mouse_pos(){
+    this.previousMousePos = null;
+  }
 
+
+  // this can probably be removed
   addLeaveWindowListener(){
     // create a generic listener on the document that will clear intervals if
     // the mouse leaves the window
@@ -77,20 +82,29 @@ export default class PlayerInput {
 
   apply_hold_listener(listener){
     // handle listeners for mouse clicking and holding
-    listener.element.addEventListener('mousedown', () => {
-      if(!listener.mouseMoveListener){
-        listener.mouseMoveListener = true;
-      }
-    });
 
-    listener.element.addEventListener('mouseup', () => {
-      if(listener.mouseMoveListener){
-        listener.mouseMoveListener = null;
-        // call function when mouse hold ends
-        listener.callend(listener.callparent);
-      }
-    });
+    ['mousedown','touchstart'].forEach( evt => 
+      listener.element.addEventListener(evt, () => {
+        if(!listener.mouseMoveListener){
+          listener.mouseMoveListener = true;
+          this.previousMousePos = null;
+        }
+      })
+    );
 
+    ['mouseup','touchend'].forEach( evt => 
+      listener.element.addEventListener(evt, () => {
+        if(listener.mouseMoveListener){
+          listener.mouseMoveListener = null;
+          // call function when mouse hold ends
+          listener.callend(listener.callparent);
+          this.reset_previous_mouse_pos();
+        }
+      })
+    );
+
+
+    // this can probably be removed
     listener.element.addEventListener('mouseleave', () => {
       if(listener.mouseMoveListener){
         listener.mouseMoveListener = null;
@@ -125,20 +139,64 @@ export default class PlayerInput {
 
   track_mouse_position(){
     let inputController = this;
+
+    /* MOUSE DEVICES */
     document.onmousemove = function(e)
     {
+
       if(inputController.mousePos.x != 0 || inputController.mousePos.y != 0){
         inputController.previousMousePos = {
           x: inputController.mousePos.x,
           y: inputController.mousePos.y,
         };
       }
+   
+      
       inputController.mousePos.x = e.clientX;
       inputController.mousePos.y = e.clientY;
 
       inputController.runCallbacks();
     }
-  }
 
+    /*    TOUCH SCREEN DEVICES    */
+    document.ontouchmove = function(e)
+    {
+
+      let onelistener = false;
+
+      inputController.listeners.forEach(listener => {
+        if(listener.mouseMoveListener){
+          onelistener = true;
+        }
+      });
+
+      if(onelistener && inputController.gameController.game_state == "playing"){
+      if(inputController.previousMousePos != null){
+        if(inputController.mousePos.x != 0 || inputController.mousePos.y != 0){
+          inputController.previousMousePos = {
+            x: inputController.mousePos.x,
+            y: inputController.mousePos.y,
+          };
+        }
+      }
+      inputController.mousePos.x = e.touches[0].clientX;
+      inputController.mousePos.y = e.touches[0].clientY;
+
+      if(inputController.previousMousePos == null){
+        if(inputController.mousePos.x != 0 || inputController.mousePos.y != 0){
+          inputController.previousMousePos = {
+            x: inputController.mousePos.x,
+            y: inputController.mousePos.y,
+          };
+        }
+      }
+    }else{
+      inputController.previousMousePos = null;
+    }
+
+      inputController.runCallbacks();
+    }
+
+  }
 
 }

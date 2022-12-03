@@ -2,13 +2,17 @@
 
 import {line_dist, angle_between_points} from "./functions.js";
 
-const lineColor = "red";
+const lineColor = "aqua";
 const lineWidth = 1;
+const sparkColor = (seed = 0) => {
+  return seed % 2 == 0 ? "yellow" : "white"; 
+};
 
 export default class Canvas {
 
-    constructor(parentElement){
+    constructor(parentElement, gameController){
       this.parentElement = parentElement;
+      this.gameController = gameController;
       this.canvas = null;
       this.offset = null;
       this.ctx = null;
@@ -17,6 +21,40 @@ export default class Canvas {
       document.addEventListener("mouseup", () => {
         this.lastSize = null;
       })
+      // spark effects
+      this.spark_flow_rate = 0;
+      setInterval(() => {
+        this.spark_flow();
+      }, 20);
+    }
+
+    spark_flow(){
+      if(this.canvas){
+      // used for spark moving effect
+      this.spark_flow_rate += 0.1;
+      // make stars emit sparks
+      let starDict = this.gameController.getStarDict();
+      let seed = 0;
+      for(let key in starDict){
+        let star = starDict[key];
+        seed += 1;
+        if(star.state == "spinning"){
+          let size_factor = window.getComputedStyle(star.container_div).getPropertyValue("opacity");
+          this.drawSpark(star.get_position(), 
+          30 * size_factor,
+           seed,
+           Math.round(5 * size_factor)+1);
+        }
+        if(star.state == "exploding"){
+          let size_factor = window.getComputedStyle(star.element).getPropertyValue("opacity");
+          this.drawSpark(star.get_position(), 
+          100 * (1-size_factor),
+           seed, 5);
+        }
+      }
+      // create random sparkles
+      this.drawRandomSparkle();
+      }
     }
 
     createCanvas(){
@@ -103,6 +141,52 @@ export default class Canvas {
 
       return line_points;
 
+    }
+
+
+    drawSpark(startPoint, size, seed, spark_count = 5){
+
+      if(!this.ctx){ this.ctx = this.canvas.getContext("2d"); }
+      
+      let sparkCount = spark_count;
+
+      for(let i=1; i < sparkCount+1; i++){
+        let ang = (i * (360/sparkCount)) + Math.cos(seed + this.spark_flow_rate*0.1);
+        let add_size = (Math.sin(this.spark_flow_rate + i*0.5) * (ang*0.1)) * (size*0.02);
+        let pointFrom = {
+          x: startPoint.x + Math.cos(ang) * add_size,
+          y: startPoint.y + Math.sin(ang) * add_size,
+        }
+        let pointTo = {
+          x: startPoint.x + Math.cos(ang) * (add_size + 1 + Math.abs(1*Math.cos(seed + i))),
+          y: startPoint.y + Math.sin(ang) * (add_size + 1 + Math.abs(1*Math.cos(seed+ i))),
+        }
+
+        this.ctx.strokeStyle = sparkColor(i);
+        this.ctx.beginPath();
+        this.ctx.moveTo(
+          pointFrom.x ,
+          pointFrom.y ,
+        );
+        this.ctx.lineTo(
+          pointTo.x ,
+          pointTo.y ,
+        );
+        this.ctx.stroke();
+      }
+
+    }
+
+    drawRandomSparkle(){
+      if(!this.ctx){ this.ctx = this.canvas.getContext("2d"); }
+      this.ctx.fillStyle = [
+        "white","yellow","aqua","lime","blue"
+      ][Math.floor(Math.random() * 6)];
+      this.ctx.fillRect(
+        Math.random()*this.canvas.width,
+        Math.random()*this.canvas.height,
+        1+(Math.random()*3), 1+(Math.random()*3)
+      );
     }
 
 }
