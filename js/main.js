@@ -166,58 +166,12 @@ const links = [
     ]
   },
   {
-    week: "Week 11",
-    active: "false",
+    week: "Final Project",
+    active: "true",
     assignments: [
       {
-        label: "Week 11 notes",
-        url: "notes/notes.html?week=11",
-      },
-      {
-        label: "upcoming assignment",
-        url: "#",
-      },
-    ]
-  },
-  {
-    week: "Week 12",
-    active: "false",
-    assignments: [
-      {
-        label: "Week 12 notes",
-        url: "notes/notes.html?week=12",
-      },
-      {
-        label: "upcoming assignment",
-        url: "#",
-      },
-    ]
-  },
-  {
-    week: "Week 13",
-    active: "false",
-    assignments: [
-      {
-        label: "Week 13 notes",
-        url: "notes/notes.html?week=13",
-      },
-      {
-        label: "upcoming assignment",
-        url: "#",
-      },
-    ]
-  },
-  {
-    week: "Week 14",
-    active: "false",
-    assignments: [
-      {
-        label: "Week 14 notes",
-        url: "notes/notes.html?week=14",
-      },
-      {
-        label: "upcoming assignment",
-        url: "#",
+        label: "Challenge Two - Star Swiper",
+        url: "challenge_two/index.html",
       },
     ]
   },

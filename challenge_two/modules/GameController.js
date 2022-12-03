@@ -34,8 +34,9 @@ export default class GameController {
     this.patterns_count = 0;
     this.difficulty_counter = 0;
     this.difficulty_inc_wait = 1000;
-    this.default_fadespeed = 5000;
+    this.default_fadespeed = 4000;
     this.fadespeed = this.default_fadespeed;
+    this.passPercentage = 0.5;
     this.startDifficultyIncrement();
   }
 
@@ -130,7 +131,8 @@ export default class GameController {
     if(this.game_state == "playing"){
       // create new pattern
       this.starController.createStars(
-        this.patternCreator.create_pattern()
+        this.patternCreator.create_pattern(),
+        this.fadespeed,
       )
       // increment counter (for difficulty)
       this.patterns_count += 1;
@@ -140,7 +142,7 @@ export default class GameController {
 
   handleMissedStars(info){
     // determine quality of swipe
-    if(info.missed > info.out_of * 0.5){
+    if(info.missed > info.out_of * this.passPercentage){
       this.menu.addStrike();
       this.strikes += 1;
     }
@@ -148,6 +150,8 @@ export default class GameController {
     if(this.strikes >= 3){
       this.handleGameOver();
     }
+    // increase difficulty
+    this.passPercentage = Math.max(0.12, this.passPercentage - (this.patterns_count % 2 == 0 ? 0.012 : 0));
   }
 
   handleGameOver(){
@@ -214,8 +218,8 @@ export default class GameController {
     });
 
     // increase the speed at which stars fade
-    this.fadespeed = Math.max(100, this.fadespeed - 5 );
-
+    this.fadespeed = Math.max(650, this.fadespeed - 40 );
+    console.log(this.fadespeed);
   }
 
   difficulty_increment(){

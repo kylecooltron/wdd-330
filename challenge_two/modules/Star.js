@@ -69,7 +69,7 @@ export class StarController {
 
 
 
-  createStars(patternList, fadespeed=5000){
+  createStars(patternList, fadespeed){
     // set the initial star count
     this.starStartCount = patternList.length;
     // create new stars and add them to dict
@@ -146,7 +146,7 @@ export class Star {
     parentElement,
     destination, 
     star_ID, 
-    fadespeed = 5000
+    fadespeed
   ) {
     this.starController = starController;
     this.parentElement = parentElement;
