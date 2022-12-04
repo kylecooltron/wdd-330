@@ -26,6 +26,7 @@ export default class GameController {
     this.menu = null;
     // game state
     this.game_state = "start-menu";
+    this.was_resized = false;
     // game variables
     this.extra_length_allowed = 0;
     this.current_swipe_dist = 0;
@@ -65,6 +66,10 @@ export default class GameController {
   }
 
   windowResize(){
+    if(["playing","start-menu"].includes(this.game_state)){
+      console.log("resized");
+    // reset
+    this.was_resized = false;
     // reset
     this.strikes = 0;
     // reset difficulty
@@ -86,6 +91,9 @@ export default class GameController {
         callparent: this,
       }]
     );
+    }else{
+      this.was_resized = true;
+    }
   }
 
   setState(state){
@@ -187,6 +195,9 @@ export default class GameController {
   }
 
   resetGame(){
+    if(this.was_resized){
+      this.windowResize();
+    }
     this.score.set_score(0);
     this.patterns_count = 0;
     this.menu.setState("start-menu");
