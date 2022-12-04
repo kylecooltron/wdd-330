@@ -8,8 +8,8 @@ export default class Pattern {
   constructor(width, height) {
     this.default_complexity = {
       "count": 5,
-      "angle": 100,
-      "dist": 60,
+      "angle": 120,
+      "dist": 80,
     };
     this.pattern_array = [];
     this.complexity = this.default_complexity;

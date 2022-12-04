@@ -121,7 +121,7 @@ export class StarController {
             star.get_y(),
           )
           // see if it's close to star
-          if(dist <= 40){
+          if(dist <= 28){
             star.explodeStar();
             this.gameController.addPoints(100);
             //stop searching

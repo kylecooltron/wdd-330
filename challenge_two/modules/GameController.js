@@ -17,7 +17,8 @@ export default class GameController {
     this.parentElement = null;
     this.score = new Score(document.querySelector(scoreElement));
     this.lsManager = new LocalStorageManager();
-    // For testing purposes -> this.lsManager.clearData();
+    // For testing purposes -> 
+    // this.lsManager.clearData();
     // controllers
     this.canvasController = null;
     this.patternCreator = null;
@@ -28,14 +29,14 @@ export default class GameController {
     this.game_state = "start-menu";
     this.was_resized = false;
     // game variables
-    this.extra_length_allowed = 0;
+    this.extra_length_allowed = -1;
     this.current_swipe_dist = 0;
     this.strikes = 0;
     // game difficulty control
     this.patterns_count = 0;
     this.difficulty_counter = 0;
     this.difficulty_inc_wait = 1000;
-    this.default_fadespeed = 4000;
+    this.default_fadespeed = 1000;//3500;
     this.fadespeed = this.default_fadespeed;
     this.passPercentage = 0.5;
     this.startDifficultyIncrement();
@@ -210,26 +211,26 @@ export default class GameController {
     this.patternCreator.set_complexity({
       "count": (
         this.patternCreator.get_complexity_attr("count") + (
-          // increase count every 8 patterns
+          // increase count every 8 steps
           this.difficulty_counter % 8 == 0 ? 1 : 0
         )
         ),
       "angle": Math.min(320, // max angle
         this.patternCreator.get_complexity_attr("angle") + (
-          // increase angle every 4 patterns
-          this.difficulty_counter % 4 == 0 ? 1 : 0
+          // increase angle every 3 steps
+          this.difficulty_counter % 3 == 0 ? 1 : 0
         )
       ),
       "dist": Math.max(30,
         this.patternCreator.get_complexity_attr("dist") - (
-          // decrease angle every 8 patterns
-          this.difficulty_counter % 8 == 0 ? 1 : 0
+          // decrease angle every 8 steps
+          this.difficulty_counter % 4 == 0 ? 1 : 0
         )
       ),
     });
 
     // increase the speed at which stars fade
-    this.fadespeed = Math.max(650, this.fadespeed - 40 );
+    this.fadespeed = Math.max(1000, this.fadespeed - 26 );
     console.log(this.fadespeed);
   }
 

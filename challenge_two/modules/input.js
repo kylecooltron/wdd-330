@@ -16,6 +16,8 @@ export default class PlayerInput {
 
     this.addLeaveWindowListener();
     this.addResizeWindowListener();
+
+    this.wait_resize = null;
   }
 
   // getters
@@ -53,7 +55,10 @@ export default class PlayerInput {
 
   addResizeWindowListener(){
     window.addEventListener("resize", () => {
-      this.gameController.windowResize();
+      clearTimeout(this.wait_resize);
+      this.wait_resize = setTimeout(() => {
+        this.gameController.windowResize();
+      }, 200);
     });
   }
 
