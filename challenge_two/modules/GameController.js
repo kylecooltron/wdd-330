@@ -36,7 +36,7 @@ export default class GameController {
     this.patterns_count = 0;
     this.difficulty_counter = 0;
     this.difficulty_inc_wait = 1000;
-    this.default_fadespeed = 1000;//3500;
+    this.default_fadespeed = 3500;
     this.fadespeed = this.default_fadespeed;
     this.passPercentage = 0.5;
     this.startDifficultyIncrement();
