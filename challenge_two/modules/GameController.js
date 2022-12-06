@@ -40,6 +40,8 @@ export default class GameController {
     this.fadespeed = this.default_fadespeed;
     this.passPercentage = 0.5;
     this.startDifficultyIncrement();
+    // special effectss
+    this.swipe_points = []
   }
 
   // accessors - - - - - - -
@@ -136,7 +138,6 @@ export default class GameController {
     }
     // reset swipe input
     this.playerInput.nextStarPattern();
-
     if(this.game_state == "playing"){
       // create new pattern
       this.starController.createStars(
@@ -150,11 +151,31 @@ export default class GameController {
   }
 
   handleMissedStars(info){
+    // determine color of swipe
+    let quality = this.starController.getPointQuality();
+    let quality_color = "yellow";
+    // determine color
+    if(quality > 0.7){ quality_color = "lime";}
+    if(quality < 0.2){ quality_color = "red";}
+
     // determine quality of swipe
-    if(info.missed > info.out_of * this.passPercentage){
+    if(info.missed > info.out_of * this.passPercentage || quality < 0.2){
       this.menu.addStrike();
       this.strikes += 1;
+      // also change color of quality indicator
+      quality_color = "red";
     }
+
+    if(this.swipe_points){
+      this.canvasController.swipe_quality_effect(
+        this.swipe_points,
+        quality_color,
+        10,
+      )
+    }
+    // reset
+    this.swipe_points = []
+
     // handle game over
     if(this.strikes >= 3){
       this.handleGameOver();
@@ -224,14 +245,13 @@ export default class GameController {
       "dist": Math.max(30,
         this.patternCreator.get_complexity_attr("dist") - (
           // decrease angle every 8 steps
-          this.difficulty_counter % 4 == 0 ? 1 : 0
+          this.difficulty_counter % 3 == 0 ? 1 : 0
         )
       ),
     });
 
     // increase the speed at which stars fade
     this.fadespeed = Math.max(1000, this.fadespeed - 26 );
-    console.log(this.fadespeed);
   }
 
   difficulty_increment(){
@@ -289,6 +309,13 @@ export default class GameController {
       callparent.playerInput.previous_mouse_pos(),
       callparent.playerInput.mouse_pos()
     );
+   // add point to swipe quality effect
+   callparent.swipe_points.push(
+    {
+      x: callparent.playerInput.mouse_pos().x,
+      y: callparent.playerInput.mouse_pos().y,
+    }
+  )
     
     }
 

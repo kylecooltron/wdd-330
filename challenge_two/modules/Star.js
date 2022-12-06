@@ -1,8 +1,8 @@
-import { line_dist } from "./functions.js";
+import { line_dist, angle_between_points } from "./functions.js";
 
 
-const starImg = "images/star_small.png";
-const starImgWidth = 60;
+const starImg = "images/star_smaller.png";
+const starImgWidth = 48;
 
 export class StarController {
   constructor(gameController, parentElement){
@@ -12,6 +12,11 @@ export class StarController {
     this.starDict = {};
     this.uniqueID = 0;
     this.missedStars = 0;
+    // for determining quality of swipe
+    this.star_worth = 50; // starting value
+    this.star_dist_allowed = 30;
+    this.potential_points = null;
+    this.points_earned = null;
   }
 
 
@@ -42,6 +47,12 @@ export class StarController {
 
   getStarStartCount(){
     return this.starStartCount;
+  }
+
+  getPointQuality(){
+    console.log("earned" + this.points_earned)
+    console.log("out of " + this.potential_points)
+    return this.points_earned / this.potential_points;
   }
 
   swipeEnded(checkMissed=true){
@@ -83,6 +94,10 @@ export class StarController {
         fadespeed,
       );
     });
+    // set potential points for this round
+    this.potential_points = this.starStartCount * this.star_worth;
+    // reset points earned
+    this.points_earned = 0;
   }
 
   removeStar(star_ID, faded=false){
@@ -112,7 +127,7 @@ export class StarController {
       let star = this.starDict[key];
       if(star.get_state() == "spinning"){
         // for every point in the line
-        for(let i=0;i<line_points.length; i++){
+        for(let i=1;i<line_points.length; i++){
           let point = line_points[i];
           let dist = line_dist(
             point.x,
@@ -120,10 +135,47 @@ export class StarController {
             star.get_x(),
             star.get_y(),
           )
+          
           // see if it's close to star
-          if(dist <= 28){
+          if(dist <= this.star_dist_allowed){
+            // set star to explode
             star.explodeStar();
-            this.gameController.addPoints(100);
+            // get hypothetical spot line would cross
+            let ang = angle_between_points(
+              line_points[i-1].x,
+              line_points[i-1].y,
+              point.x,
+              point.y,
+            )
+            let projected_point = {
+              x: point.x + Math.cos(ang) * dist,
+              y: point.y + Math.sin(ang) * dist,
+            }
+            let projected_dist = line_dist(
+              projected_point.x,
+              projected_point.y,
+              star.get_x(),
+              star.get_y(),
+            )
+            if(dist < this.projected_dist){
+              // use original if it's smaller
+              this.projected_dist = dist;
+            }
+            if(this.projected_dist < 9){
+              this.projected_dist = 0;
+            }
+            // calculate point value of star
+            let point_value = Math.max(Math.ceil(
+              // distance factor
+              ((1/this.star_dist_allowed) 
+                * (this.star_dist_allowed - Math.max(projected_dist-5,0)))
+              // multiplied by current worth
+                * this.star_worth
+              // cannot be less than ten
+            ), 20);
+            this.gameController.addPoints(point_value);
+            // update points earned this round
+            this.points_earned += point_value;
             //stop searching
             break;
           }

@@ -28,6 +28,29 @@ export default class Canvas {
       }, 20);
     }
 
+    swipe_quality_effect(points_array, color, time){
+        for(let idx = 0; idx < points_array.length; idx++){
+          if(this.offset){
+            let point = {
+              x: points_array[idx].x - this.offset.left,
+              y: points_array[idx].y - this.offset.top,
+            }
+            this.drawSpark(
+              point,
+              10,
+              idx * Math.round((idx+1) * 0.33) * idx,
+              30,
+              color,
+            );
+          }
+        }
+      if(time > 0){
+        setTimeout(() => {
+          this.swipe_quality_effect(points_array, color, time - 1);
+        }, 10);
+      }
+    }
+
     spark_flow(){
       if(this.canvas){
       // used for spark moving effect
@@ -144,15 +167,15 @@ export default class Canvas {
     }
 
 
-    drawSpark(startPoint, size, seed, spark_count = 5){
+    drawSpark(startPoint, size, seed, spark_count = 5, color=null){
 
       if(!this.ctx){ this.ctx = this.canvas.getContext("2d"); }
       
       let sparkCount = spark_count;
 
       for(let i=1; i < sparkCount+1; i++){
-        let ang = (i * (360/sparkCount)) + Math.cos(seed + this.spark_flow_rate*0.1);
-        let add_size = (Math.sin(this.spark_flow_rate + i*0.5) * (ang*0.1)) * (size*0.02);
+        let ang = ((i+seed*0.1) * (360/sparkCount)) + Math.cos(seed + this.spark_flow_rate*0.1);
+        let add_size = (Math.sin(this.spark_flow_rate + i*0.5) * (ang*0.1 % size)) * (size*0.02);
         let pointFrom = {
           x: startPoint.x + Math.cos(ang) * add_size,
           y: startPoint.y + Math.sin(ang) * add_size,
@@ -162,7 +185,12 @@ export default class Canvas {
           y: startPoint.y + Math.sin(ang) * (add_size + 1 + Math.abs(1*Math.cos(seed+ i))),
         }
 
-        this.ctx.strokeStyle = sparkColor(i);
+        if(color){
+          this.ctx.strokeStyle = color;
+        }else{
+          this.ctx.strokeStyle = sparkColor(i);
+        }
+
         this.ctx.beginPath();
         this.ctx.moveTo(
           pointFrom.x ,
