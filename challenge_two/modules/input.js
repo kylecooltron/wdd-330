@@ -159,7 +159,6 @@ export default class PlayerInput {
       
       inputController.mousePos.x = e.clientX;
       inputController.mousePos.y = e.clientY;
-
       inputController.runCallbacks();
     }
 

@@ -153,10 +153,14 @@ export default class GameController {
   handleMissedStars(info){
     // determine color of swipe
     let quality = this.starController.getPointQuality();
+    
     let quality_color = "yellow";
     // determine color
     if(quality > 0.7){ quality_color = "lime";}
+    if(quality > 0.9){ quality_color = "aqua";}
+    if(quality < 0.4){ quality_color = "orange";}
     if(quality < 0.2){ quality_color = "red";}
+    
 
     // determine quality of swipe
     if(info.missed > info.out_of * this.passPercentage || quality < 0.2){
@@ -166,21 +170,40 @@ export default class GameController {
       quality_color = "red";
     }
 
-    if(this.swipe_points){
+    if(this.swipe_points.length > 3){
+      // paint line to indicate swipe quality
       this.canvasController.swipe_quality_effect(
         this.swipe_points,
         quality_color,
         10,
       )
+
+
+      let message_str = "";
+      if(quality > 0.9){
+        message_str += `PERFECT!\n`;
+      }
+      message_str += `+${this.starController.getPointsEarned()}`;
+      this.canvasController.swipe_quality_word(
+        message_str, 
+        quality_color,
+        [
+          this.swipe_points[0],
+          this.swipe_points[Math.round(this.swipe_points.length*0.25)],
+          this.swipe_points[Math.round(this.swipe_points.length*0.75)],
+          this.swipe_points[this.swipe_points.length-1],
+        ],
+      );
+    
     }
+
     // reset
     this.swipe_points = []
-
     // handle game over
     if(this.strikes >= 3){
       this.handleGameOver();
     }
-    // increase difficulty
+    // increase difficulty by round too
     this.passPercentage = Math.max(0.12, this.passPercentage - (this.patterns_count % 2 == 0 ? 0.012 : 0));
   }
 

@@ -50,9 +50,11 @@ export class StarController {
   }
 
   getPointQuality(){
-    console.log("earned" + this.points_earned)
-    console.log("out of " + this.potential_points)
     return this.points_earned / this.potential_points;
+  }
+
+  getPointsEarned(){
+    return this.points_earned;
   }
 
   swipeEnded(checkMissed=true){
@@ -109,7 +111,8 @@ export class StarController {
       delete this.starDict[star_ID];
     }
     if(Object.entries(this.starDict).length == 0){
-      this.lastStarRemoved(faded);
+
+      this.lastStarRemoved(this.missedStars > 0);
     }
   }
 
