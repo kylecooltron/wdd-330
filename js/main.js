@@ -175,6 +175,16 @@ const links = [
       },
     ]
   },
+  {
+    week: "Self Evaluation Video",
+    active: "true",
+    assignments: [
+      {
+        label: "Video Link",
+        url: "https://youtu.be/DqqQuUOZC7w",
+      }
+    ]
+  }
 ]
 
 const populate_assignments_list = () => {
