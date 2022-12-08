@@ -29,25 +29,61 @@ export default class Canvas {
     }
 
     swipe_quality_effect(points_array, color, time){
-        for(let idx = 0; idx < points_array.length; idx++){
-          if(this.offset){
-            let point = {
-              x: points_array[idx].x - this.offset.left,
-              y: points_array[idx].y - this.offset.top,
-            }
-            this.drawSpark(
-              point,
-              10,
-              idx * Math.round((idx+1) * 0.33) * idx,
-              30,
-              color,
-            );
-          }
+        for(let idx = 1; idx < points_array.length; idx++){
+          let size = 10-time;
+          this.drawLine(points_array[idx-1], points_array[idx], color, size);
         }
       if(time > 0){
         setTimeout(() => {
           this.swipe_quality_effect(points_array, color, time - 1);
         }, 10);
+      }
+    }
+
+    swipe_quality_word(word, color, swipe_points){
+      if(this.offset){
+
+        let potential_places = [
+          {x: this.canvas.width*0.35, y: this.canvas.height*0.35},
+          {x: this.canvas.width*0.65, y: this.canvas.height*0.35},
+          {x: this.canvas.width*0.35, y: this.canvas.height*0.65},
+          {x: this.canvas.width*0.65, y: this.canvas.height*0.65},
+          {x: this.canvas.width*0.7, y: this.canvas.height*0.5},
+          {x: this.canvas.width*0.3, y: this.canvas.height*0.5},
+          {x: this.canvas.width*0.5, y: this.canvas.height*0.3},
+          {x: this.canvas.width*0.5, y: this.canvas.height*0.7},
+        ];
+        let furthest_place = null;
+        let furthest_distance = 0;
+        potential_places.forEach(place => {
+          // find the shorter distance between potential place and points
+          let min_dist = null;
+
+          if(swipe_points.length > 0){
+            swipe_points.forEach(point => {
+              let dist = line_dist(
+                place.x,
+                place.y,
+                point.x - this.offset.left,
+                point.y - this.offset.top,
+                )
+              if(min_dist == null || dist < min_dist){
+                min_dist = dist;
+              }
+            });
+          }
+          
+
+          if(min_dist && min_dist >= furthest_distance){
+            // set to new furthest distance
+            furthest_distance = min_dist;
+            furthest_place = place;
+          }
+        });
+
+        if(furthest_place){
+          this.drawWord(word, color, furthest_place);
+        }
       }
     }
 
@@ -120,14 +156,14 @@ export default class Canvas {
       }
     }
 
-    drawLine(startPoint, endPoint){
+    drawLine(startPoint, endPoint, line_color=lineColor, line_width=lineWidth){
       // takes absolute x,y positions
 
       if(!this.ctx){ this.ctx = this.canvas.getContext("2d"); }
-      this.ctx.strokeStyle = lineColor;
+      // this.ctx.strokeStyle = line_color;
 
       let dist = Math.ceil(line_dist(startPoint.x, startPoint.y, endPoint.x, endPoint.y));
-      let dynamicLineWidth = lineWidth + dist * 0.3;
+      let dynamicLineWidth = line_width + dist * 0.3;
       let ang = angle_between_points(startPoint.x,startPoint.y, endPoint.x, endPoint.y);
 
       let line_points = [];
@@ -156,7 +192,7 @@ export default class Canvas {
           2 * Math.PI,
           false
           );
-        this.ctx.fillStyle = lineColor;
+        this.ctx.fillStyle = line_color;
         this.ctx.fill();
       }
 
@@ -215,6 +251,25 @@ export default class Canvas {
         Math.random()*this.canvas.height,
         1+(Math.random()*3), 1+(Math.random()*3)
       );
+    }
+
+    drawWord(string, color, position){
+      if(!this.ctx){ this.ctx = this.canvas.getContext("2d"); }
+      this.ctx.fillStyle = color;
+
+      this.ctx.save();
+      this.ctx.translate(position.x ,position.y)
+      this.ctx.rotate((Math.random()*50-25) * (Math.PI / 180));
+      this.ctx.textAlign = "center";
+      this.ctx.font = "bold 36px sans-serif";
+      let lineheight = 50;
+      let lines = string.split('\n');
+      for (var i = 0; i<lines.length; i++){
+        this.ctx.fillText(lines[i], 0, i*lineheight);
+      }
+      this.ctx.restore();
+
+
     }
 
 }
